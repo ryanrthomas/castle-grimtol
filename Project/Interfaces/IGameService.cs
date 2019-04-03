@@ -5,7 +5,7 @@ namespace indygame.Project.Interfaces
 {
     public interface IGameService
     {
-        Room CurrentRoom { get; set; }
+        // Room CurrentRoom { get; set; }
         Player CurrentPlayer { get; set; }
 
         //Initializes the game, creates rooms, their exits, and add items to rooms

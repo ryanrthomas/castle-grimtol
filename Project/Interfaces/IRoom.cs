@@ -8,6 +8,6 @@ namespace indygame.Project.Interfaces
         string Name { get; set; }
         string Description { get; set; }
         List<Item> Items { get; set; }
-        Dictionary<string, IRoom> Exits { get; set; }
+        Dictionary<Direction, IRoom> NearbyRooms { get; set; }
     }
 }

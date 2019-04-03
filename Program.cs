@@ -13,7 +13,7 @@ namespace indygame
             Console.WriteLine("Indy: \"Well, here I am in New York wondering how Sophia Hapgood got mixed up with Nazi spies.\"");
             
             GameService gm = new GameService();
-            gm.Play();
+            gm.StartGame();
         }
     }
 }

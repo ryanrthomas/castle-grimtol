@@ -3,11 +3,12 @@ using indygame.Project.Interfaces;
 
 namespace indygame.Project.Models
 {
-    public class Room
+    class Room : IRoom
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        Dictionary<Direction, IRoom> NearbyRooms { get; set; }
+        public List<Item> Items { get; set; }
+        public Dictionary<Direction, IRoom> NearbyRooms { get; set; }
 
         public void AddNearbyRooms(Direction direction, IRoom room)
         {
