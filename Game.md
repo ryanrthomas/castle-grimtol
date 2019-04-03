@@ -39,7 +39,7 @@ There are several key rooms in this story. Entering a room will trigger an event
 		
 		- use bed: "You climb into the bed and pretend to be asleep. A few minutes later several guards walk into the room. One approaches you to wake you... (GUARD) "Hey Get Up! it's your turn for watch, Go relieve Shigeru in the Guard Room" Quickly you climb out of the bed",
 		
-		- use bed * 2: "(GUARD) What do you think your doing? Hey your not Leroy, Quick Jenkins sieze him.... Jenkins a bit over-zelous swings his sword cleaving you in half... <DEATH MESSAGE>",
+		- use bed * 2: "(GUARD) What do you think you're doing? Hey you're not Leroy, Quick Jenkins sieze him.... Jenkins a bit over-zelous swings his sword cleaving you in half... <DEATH MESSAGE>",
 		
 		- take uniform: "You placed the Guard Uniform in your inventory"
 	},
@@ -50,7 +50,7 @@ There are several key rooms in this story. Entering a room will trigger an event
 	- Description: "You step into the large castle courtyard there is a flowing fountain in the middle of the grounds and a few guards patrolling the area 
 	- Events
 		- <Using Guard Uniform> 
-			-"Oi, long night tonight I wish I was in my bed. If your just getting on shift your should go talk to the captain." 
+			-"Oi, long night tonight I wish I was in my bed. If you're just getting on shift your should go talk to the captain." 
 		- <!Using Guard Uniform> 
 			- "To your left you see a guard approaching you. (GUARD) Wat who the blazes are you? Quickly he raises the alarm and several of the crossbow men turn and fire on you. You realize you have made a grave mistake as a bolt slams into your body... <DEATH MESSAGE>">"
 	

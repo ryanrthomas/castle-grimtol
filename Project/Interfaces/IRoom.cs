@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using CastleGrimtol.Project.Models;
+using indygame.Project.Models;
 
-namespace CastleGrimtol.Project.Interfaces
+namespace indygame.Project.Interfaces
 {
     public interface IRoom
     {
