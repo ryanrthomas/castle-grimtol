@@ -9,7 +9,7 @@ namespace indygame.Project
     {
         public IRoom CurrentRoom { get; set; }
         public bool Playing { get; set; }
-        public Player CurrentPlayer { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+        public Player CurrentPlayer { get; set; }
 
         public void GetUserInput()
         {
@@ -38,6 +38,9 @@ namespace indygame.Project
                 case "inventory":
                     Inventory();
                     break;
+                case "take":
+                    TakeItem(option);
+                    break;
                 case "help":
                     Help();
                     break;
@@ -58,6 +61,7 @@ namespace indygame.Project
 
         public void Go(string option)
         {
+            Console.Clear();
             if (!Enum.TryParse(option, out Direction direction))
             {
                 Console.ForegroundColor = ConsoleColor.Cyan;
@@ -116,6 +120,7 @@ namespace indygame.Project
 
             CurrentRoom = boxoffice;
             Playing = true;
+            CurrentPlayer = new Player();
         }
 
         public void Inventory()
@@ -171,30 +176,34 @@ namespace indygame.Project
             }
         }
 
-        public void TakeItem(string option)
+        public void TakeItem(string itemName)
         {
-            if (!Enum.TryParse(option, out Direction direction))
-            {
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                System.Console.WriteLine("Indy: \"I don't think that will work.\"");
-                Console.ForegroundColor = ConsoleColor.Green;
-                return;
-            }
             Console.Clear();
-            if (CurrentRoom.NearbyRooms.ContainsKey(direction))
-            {
-                System.Console.WriteLine("Indy picked up the item!");
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                System.Console.WriteLine("Indy: \"I can't go that way.\"");
-                Console.ForegroundColor = ConsoleColor.Green;
-            }
+            Item item = CurrentRoom.Items.Find(i => itemName == i.Name);
+            CurrentPlayer.Inventory.Add(item);
+            // if (!Enum.TryParse(option, out Direction direction))
+            // {
+            //     Console.ForegroundColor = ConsoleColor.Cyan;
+            //     System.Console.WriteLine("Indy: \"I don't think that will work.\"");
+            //     Console.ForegroundColor = ConsoleColor.Green;
+            //     return;
+            // }
+            // Console.Clear();
+            // if (CurrentRoom.NearbyRooms.ContainsKey(direction))
+            // {
+            //     // System.Console.WriteLine("Indy picked up the item!");
+            // }
+            // else
+            // {
+            //     Console.ForegroundColor = ConsoleColor.Cyan;
+            //     System.Console.WriteLine("Indy: \"I can't go that way.\"");
+            //     Console.ForegroundColor = ConsoleColor.Green;
+            // }
         }
 
         public void UseItem(string option)
         {
+            Console.Clear();
             if (!Enum.TryParse(option, out Direction direction))
             {
                 Console.ForegroundColor = ConsoleColor.Cyan;
@@ -205,7 +214,7 @@ namespace indygame.Project
             Console.Clear();
             if (CurrentRoom.NearbyRooms.ContainsKey(direction))
             {
-                System.Console.WriteLine("Indy used the item!");
+                // System.Console.WriteLine("Indy used the item!");
             }
             else
             {

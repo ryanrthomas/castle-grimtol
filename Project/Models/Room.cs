@@ -29,6 +29,7 @@ namespace indygame.Project.Models
             NearbyRooms = new Dictionary<Direction, IRoom>();
             Name = name;
             Description = desc;
+            Items = new List<Item>();
         }
     }
     public enum Direction
