@@ -21,7 +21,7 @@ namespace indygame.Project.Models
             });
         }
 
-        public Item(string name, string desc)
+        public Item(string name, string desc, bool canTake)
         {
             Name = name;
             Description = desc;

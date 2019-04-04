@@ -9,6 +9,7 @@ namespace indygame.Project
     {
         public IRoom CurrentRoom { get; set; }
         public bool Playing { get; set; }
+        public bool Talking { get; set; }
         public Player CurrentPlayer { get; set; }
 
         public void GetUserInput()
@@ -119,24 +120,75 @@ namespace indygame.Project
         public void Talk(string characterName)
         {
             Console.Clear();
+            Talking = true;
             Character character = CurrentRoom.Characters.Find(i => characterName.ToLower() == i.Name.ToLower());
             // System.Console.WriteLine(characterName);
+            // int index = 0;
             if (character != null)
             {
-                Console.Clear();
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("INDY: \"Hello there.\"");
-                Console.ForegroundColor = ConsoleColor.Gray;
-                Console.WriteLine("TICKET TAKER: \"The show's sold out, sir.\"");
-                Console.WriteLine("TICKET TAKER: \"No seats, no standing room, no exceptions.\"");
-                Console.ForegroundColor = ConsoleColor.Green;
-                GetUserInput();
+                while (Talking)
+                {
+                    Console.Clear();
+                    if (characterName == "stagehand")
+                    {
+                        if (character.TalkedTo == false)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.WriteLine("INDY: \"Excuse me.\"");
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine($"{characterName.ToUpper()}: \"Aha! You must be the new doorman. About time they got rid of Biff, he was such a pushover.\"");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.WriteLine("INDY: \"I want a reading with Ms. Hapgood.\"");
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine($"{characterName.ToUpper()}: \"Are you crazy? During a show? Write her a letter!\"");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            character.TalkedTo = true;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.WriteLine("INDY: \"Excuse me.\"");
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine($"{characterName.ToUpper()}: \"Take it easy and watch the show.\"");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                        }
+                    }
+                    else if (characterName == "ticket taker")
+                    {
+                        if (character.TalkedTo == false)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.WriteLine("INDY: \"Hello there.\"");
+                            Console.ForegroundColor = ConsoleColor.Gray;
+                            Console.WriteLine($"{characterName.ToUpper()}: \"The show's sold out, sir.\"");
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.WriteLine("INDY: \"But--\"");
+                            Console.ForegroundColor = ConsoleColor.Gray;
+                            Console.WriteLine($"{characterName.ToUpper()}: \"No seats, no standing room, no exceptions.\"");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            character.TalkedTo = true;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.WriteLine("INDY: \"Excuse me.\"");
+                            Console.ForegroundColor = ConsoleColor.Gray;
+                            Console.WriteLine($"{characterName.ToUpper()}: \"Come back next week.\"");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                        }
+
+                    }
+                    Talking = false;
+                    GetUserInput();
+                }
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Cyan;
-                System.Console.WriteLine("INDY: \"There's no one to talk to here.\"");
+                System.Console.WriteLine("INDY: \"With whom should I talk?\"");
                 Console.ForegroundColor = ConsoleColor.Green;
+                Talking = false;
             }
         }
 
@@ -166,15 +218,16 @@ namespace indygame.Project
             Room alleyway = new Room("ALLEYWAY", "Indy is at the corner of the theater. There is a closed newspaper stand nearby with today's NEWSPAPER available, along with a PHONE BOOTH adjacent to it. Around the corner to the EAST lies the back of the theater.");
             Room backdoor = new Room("BACK DOOR OF THEATER", "Indy is at the back of the theater with a DOOR in front of you - it looks like it may lead BACKSTAGE. To the west is the ALLEYWAY. To the east is an area with many BOXES.");
             Room fireescape = new Room("FIRE ESCAPE", "Past the back door, Indy sees a fire escape LADDER. However, there are dozens of LARGE BOXES in the way.");
-            Room backstage = new Room("BACKSTAGE", "Indy is in the side wing of the stage-left side of the theater. Indy sees Sophia giving her presentation to a packed audience. There is a STAGEHAND watching closely nearby next to a MACHINE with three BUTTONS and a LEVER.");
+            Room backstage = new Room("BACKSTAGE", "Indy is in the side wing of the stage-left side of the theater. Indy sees Sophia giving her presentation to a packed audience. There is a STAGEHAND watching closely nearby next to a MACHINE with three LEVERS and a BUTTON.");
 
             // Create all items
-            Item magazine = new Item("'National Archaeology' magazine", "You flip through the pages, looking at a photo of you and Sophia. \"This was taken a long time ago, when I thought we might like each other,\" you say to yourself.");
-            Item newspaper = new Item("Newspaper", "It's today's paper.");
+            Item magazine = new Item("'National Archaeology' magazine", "You flip through the pages, looking at a photo of you and Sophia. \"This was taken a long time ago, when I thought we might like each other,\" you say to yourself.", true);
+            Item newspaper = new Item("Newspaper", "It's today's paper.", true);
+            Item phonebooth = new Item("Phone booth", "", false);
 
             // Create all npcs
-            Character tickettaker = new Character("Ticket taker", "She's counting up the receipts.");
-            Character stagehand = new Character("Stagehand", "He looks bored.");
+            Character tickettaker = new Character("Ticket taker", "She's counting up the receipts.", false);
+            Character stagehand = new Character("Stagehand", "He looks bored.", false);
 
             // Establish relationships
             //ROOMS
@@ -189,12 +242,14 @@ namespace indygame.Project
             backstage.AddNearbyRooms(Direction.south, backdoor);
             //ITEMS
             alleyway.Items.Add(newspaper);
+            alleyway.Items.Add(phonebooth);
             //CHARACTERS
             boxoffice.Characters.Add(tickettaker);
             backstage.Characters.Add(stagehand);
 
             CurrentRoom = boxoffice;
             Playing = true;
+            Talking = false;
             CurrentPlayer = new Player();
             CurrentPlayer.Inventory.Add(magazine);
         }
@@ -239,7 +294,7 @@ namespace indygame.Project
             else
             {
                 Console.ForegroundColor = ConsoleColor.Cyan;
-                System.Console.WriteLine("INDY: \"There's nothing to use here.\"");
+                System.Console.WriteLine("INDY: \"I can't use that.\"");
                 Console.ForegroundColor = ConsoleColor.Green;
 
             }
