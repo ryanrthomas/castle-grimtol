@@ -20,6 +20,10 @@ namespace indygame.Project
             if (inputArr.Length > 1)
             {
                 option = inputArr[1];
+                if (inputArr.Length > 2)
+                {
+                    option += " " + inputArr[2];
+                }
             }
             switch (command)
             {
@@ -31,6 +35,7 @@ namespace indygame.Project
                     Look();
                     break;
                 case "talk":
+                case "talk to":
                     Talk(option);
                     break;
                 case "i":
@@ -91,6 +96,7 @@ namespace indygame.Project
         {
             Console.Clear();
             Console.WriteLine("This is a text-based adventure game which relies heavily on experimenting with text commands.");
+            Console.WriteLine("- Use cardinal directions (north, south, east, west) to move from place to place.");
             Console.WriteLine("- LOOK at everything (look statue).");
             Console.WriteLine("- GET everything you can (get bottle).");
             Console.WriteLine("- USE things (use lever).");
@@ -114,14 +120,14 @@ namespace indygame.Project
         {
             Console.Clear();
             Character character = CurrentRoom.Characters.Find(i => characterName.ToLower() == i.Name.ToLower());
+            // System.Console.WriteLine(characterName);
             if (character != null)
             {
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine("INDY: \"Hello there.\"");
-                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                Console.ForegroundColor = ConsoleColor.Gray;
                 Console.WriteLine("TICKET TAKER: \"The show's sold out, sir.\"");
-                // List of selections goes here
                 Console.WriteLine("TICKET TAKER: \"No seats, no standing room, no exceptions.\"");
                 Console.ForegroundColor = ConsoleColor.Green;
                 GetUserInput();
@@ -224,8 +230,8 @@ namespace indygame.Project
         public void UseItem(string itemName)
         {
             Console.Clear();
-            Item item = CurrentPlayer.Inventory.Find(i => itemName == i.Name);
-            if (CurrentPlayer.Inventory.Contains(item))
+            Item item = CurrentPlayer.Inventory.Find(i => itemName.ToLower() == i.Name.ToLower());
+            if (item != null)
             {
                 CurrentPlayer.Inventory.Remove(item);
                 System.Console.WriteLine($"Indy used the {itemName}.");
