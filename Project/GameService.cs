@@ -149,6 +149,7 @@ namespace indygame.Project
             // Create all items
             Item magazine = new Item("National Archaeology", "You flip through the pages, looking at a photo of you and Sophia. \"This was taken a long time ago, when I thought we might like each other,\" you say to yourself.");
             Item newspaper = new Item("Newspaper", "It's today's paper.");
+           
 
             // Establish relationships
             //ROOMS
@@ -167,6 +168,7 @@ namespace indygame.Project
             CurrentRoom = boxoffice;
             Playing = true;
             CurrentPlayer = new Player();
+            CurrentPlayer.Inventory.Add(magazine);
         }
 
         public void StartGame()
@@ -194,7 +196,6 @@ namespace indygame.Project
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 System.Console.WriteLine("INDY: \"There's nothing to pick up here.\"");
                 Console.ForegroundColor = ConsoleColor.Green;
-
             }
         }
 
