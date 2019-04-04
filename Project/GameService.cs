@@ -207,7 +207,7 @@ namespace indygame.Project
             if (CurrentPlayer.Inventory.Contains(item))
             {
                 CurrentPlayer.Inventory.Remove(item);
-                System.Console.WriteLine($"Indy picked up the {itemName}.");
+                System.Console.WriteLine($"Indy used the {itemName}.");
             }
             else
             {
