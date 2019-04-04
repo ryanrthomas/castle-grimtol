@@ -24,6 +24,7 @@ namespace indygame.Project.Interfaces
 
         //Stops the application
         void Quit();
+        void GameOver();
 
         //Should display a list of commands to the console
         void Help();

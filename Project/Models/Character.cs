@@ -7,12 +7,12 @@ namespace indygame.Project.Models
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public bool TalkedTo {get;set;}
+        public int TalkedTo {get;set;} = 0;
         public List<Choice> Choices { get; set; }
 
         public List<string> Dialogue { get; set; }
 
-        public Character(string name, string desc, bool talkedTo)
+        public Character(string name, string desc, int talkedTo)
         {
             Name = name;
             Description = desc;
