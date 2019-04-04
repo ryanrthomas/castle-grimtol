@@ -30,6 +30,9 @@ namespace indygame.Project
                 case "look around":
                     Look();
                     break;
+                case "talk":
+                    Talk();
+                    break;
                 case "i":
                 case "inv":
                 case "inventory":
@@ -55,18 +58,23 @@ namespace indygame.Project
 
         public void Go(string option)
         {
-           if(!Enum.TryParse(option, out Direction direction))
-           {
-               return;
-           }
-           Console.Clear();
+            if (!Enum.TryParse(option, out Direction direction))
+            {
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                System.Console.WriteLine("Indy: \"I don't think that will work.\"");
+                Console.ForegroundColor = ConsoleColor.Green;
+                return;
+            }
+            Console.Clear();
             if (CurrentRoom.NearbyRooms.ContainsKey(direction))
             {
                 CurrentRoom = CurrentRoom.NearbyRooms[direction];
             }
             else
             {
+                Console.ForegroundColor = ConsoleColor.Cyan;
                 System.Console.WriteLine("Indy: \"I can't go that way.\"");
+                Console.ForegroundColor = ConsoleColor.Green;
             }
         }
 
@@ -85,11 +93,11 @@ namespace indygame.Project
         public void Initialize()
         {
             // Create all rooms
-            Room boxoffice = new Room("THEATER BOX OFFICE", "You are in front of the theater where Sophia's psychic show is taking place. A TICKET TAKER sits in a box office. The only route is to the south down the street to an ALLEYWAY.");
-            Room alleyway = new Room("ALLEYWAY", "You are at the corner of the theater. There is a newspaper stand nearby with today's NEWSPAPER available, along with a PHONE BOOTH adjacent to it. Around the corner lies the back of the theater.");
-            Room backdoor = new Room("BACK DOOR OF THEATER", "You are at the back of the theater with a DOOR in front of you - it looks like it may lead BACKSTAGE. To the west is the ALLEYWAY. To the east is an area with many BOXES.");
-            Room fireescape = new Room("FIRE ESCAPE", "Past the back door, you see a fire escape LADDER. However, there are dozens of LARGE BOXES in the way.");
-            Room backstage = new Room("BACKSTAGE", "You are in the side wing of the stage-left side of the theater. You see Sophia giving her presentation to a packed audience. There is a STAGEHAND watching closely nearby near a MACHINE.");
+            Room boxoffice = new Room("THEATER BOX OFFICE", "Indy is in front of the theater with a large MARQUEE where Sophia's psychic show is taking place. A TICKET TAKER sits in a box office. The only route is to the south down the street to an ALLEYWAY.");
+            Room alleyway = new Room("ALLEYWAY", "Indy is at the corner of the theater. There is a newspaper stand nearby with today's NEWSPAPER available, along with a PHONE BOOTH adjacent to it. Around the corner lies the back of the theater.");
+            Room backdoor = new Room("BACK DOOR OF THEATER", "Indy is at the back of the theater with a DOOR in front of you - it looks like it may lead BACKSTAGE. To the west is the ALLEYWAY. To the east is an area with many BOXES.");
+            Room fireescape = new Room("FIRE ESCAPE", "Past the back door, Indy sees a fire escape LADDER. However, there are dozens of LARGE BOXES in the way.");
+            Room backstage = new Room("BACKSTAGE", "Indy is in the side wing of the stage-left side of the theater. Indy sees Sophia giving her presentation to a packed audience. There is a STAGEHAND watching closely nearby next to a MACHINE.");
 
             // Create all items
             Item magazine = new Item("National Archaeology", "You flip through the pages, looking at a photo of you and Sophia. \"This was taken a long time ago, when I thought we might like each other,\" you say to yourself.");
@@ -114,6 +122,18 @@ namespace indygame.Project
         {
             Console.Clear();
             System.Console.WriteLine("Inventory:");
+            GetUserInput();
+        }
+
+        public void Talk()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("INDY: \"Hello there.\"");
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine("TICKET TAKER: \"The show's sold out, sir.\"");
+            Console.WriteLine("TICKET TAKER: \"No seats, no standing room, no exceptions.\"");
+            Console.ForegroundColor = ConsoleColor.Green;
             GetUserInput();
         }
 
@@ -143,7 +163,6 @@ namespace indygame.Project
 
         public void StartGame()
         {
-            Console.Clear();
             Initialize();
             while (Playing)
             {
@@ -152,14 +171,48 @@ namespace indygame.Project
             }
         }
 
-        public void TakeItem(string itemName)
+        public void TakeItem(string option)
         {
-            throw new System.NotImplementedException();
+            if (!Enum.TryParse(option, out Direction direction))
+            {
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                System.Console.WriteLine("Indy: \"I don't think that will work.\"");
+                Console.ForegroundColor = ConsoleColor.Green;
+                return;
+            }
+            Console.Clear();
+            if (CurrentRoom.NearbyRooms.ContainsKey(direction))
+            {
+                System.Console.WriteLine("Indy picked up the item!");
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                System.Console.WriteLine("Indy: \"I can't go that way.\"");
+                Console.ForegroundColor = ConsoleColor.Green;
+            }
         }
 
-        public void UseItem(string itemName)
+        public void UseItem(string option)
         {
-            throw new System.NotImplementedException();
+            if (!Enum.TryParse(option, out Direction direction))
+            {
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                System.Console.WriteLine("Indy: \"I don't think that will work.\"");
+                Console.ForegroundColor = ConsoleColor.Green;
+                return;
+            }
+            Console.Clear();
+            if (CurrentRoom.NearbyRooms.ContainsKey(direction))
+            {
+                System.Console.WriteLine("Indy used the item!");
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                System.Console.WriteLine("Indy: \"I can't go that way.\"");
+                Console.ForegroundColor = ConsoleColor.Green;
+            }
         }
     }
 }
