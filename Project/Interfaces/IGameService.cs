@@ -42,11 +42,15 @@ namespace indygame.Project.Interfaces
         //being able to use the item
         void UseItem(string itemName);
 
+        void Talk(string characterName);
+
         //Print the list of items in the players inventory to the console
         void Inventory();
 
         //Display the CurrentRoom Description, Exits, and Items
         void Look();
+
+
 
         #endregion
     }

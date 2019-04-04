@@ -13,7 +13,7 @@ namespace indygame.Project
 
         public void GetUserInput()
         {
-            System.Console.WriteLine("What would you like to do?");
+            System.Console.Write("What would you like to do? ");
             string[] inputArr = System.Console.ReadLine().ToLower().Split(" ");
             string command = inputArr[0];
             string option = "";
@@ -31,7 +31,7 @@ namespace indygame.Project
                     Look();
                     break;
                 case "talk":
-                    Talk();
+                    Talk(option);
                     break;
                 case "i":
                 case "inv":
@@ -103,19 +103,35 @@ namespace indygame.Project
         {
             Console.Clear();
             System.Console.WriteLine("Inventory:");
+            for (int i = 0; i < CurrentPlayer.Inventory.Count; i++)
+            {
+                System.Console.WriteLine($"- {CurrentPlayer.Inventory[i].Name}");
+            }
             GetUserInput();
         }
 
-        public void Talk()
+        public void Talk(string characterName)
         {
             Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("INDY: \"Hello there.\"");
-            Console.ForegroundColor = ConsoleColor.DarkMagenta;
-            Console.WriteLine("TICKET TAKER: \"The show's sold out, sir.\"");
-            Console.WriteLine("TICKET TAKER: \"No seats, no standing room, no exceptions.\"");
-            Console.ForegroundColor = ConsoleColor.Green;
-            GetUserInput();
+            Character character = CurrentRoom.Characters.Find(i => characterName.ToLower() == i.Name.ToLower());
+            if (character != null)
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("INDY: \"Hello there.\"");
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                Console.WriteLine("TICKET TAKER: \"The show's sold out, sir.\"");
+                // List of selections goes here
+                Console.WriteLine("TICKET TAKER: \"No seats, no standing room, no exceptions.\"");
+                Console.ForegroundColor = ConsoleColor.Green;
+                GetUserInput();
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                System.Console.WriteLine("INDY: \"There's no one to talk to here.\"");
+                Console.ForegroundColor = ConsoleColor.Green;
+            }
         }
 
         public void Look()
@@ -141,15 +157,18 @@ namespace indygame.Project
         {
             // Create all rooms
             Room boxoffice = new Room("THEATER BOX OFFICE", "Indy is in front of the theater with a large MARQUEE where Sophia's psychic show is taking place. A TICKET TAKER sits in a box office. The only route is to the SOUTH down the street to an ALLEYWAY.");
-            Room alleyway = new Room("ALLEYWAY", "Indy is at the corner of the theater. There is a newspaper stand nearby with today's NEWSPAPER available, along with a PHONE BOOTH adjacent to it. Around the corner lies to the EAST the back of the theater.");
+            Room alleyway = new Room("ALLEYWAY", "Indy is at the corner of the theater. There is a closed newspaper stand nearby with today's NEWSPAPER available, along with a PHONE BOOTH adjacent to it. Around the corner to the EAST lies the back of the theater.");
             Room backdoor = new Room("BACK DOOR OF THEATER", "Indy is at the back of the theater with a DOOR in front of you - it looks like it may lead BACKSTAGE. To the west is the ALLEYWAY. To the east is an area with many BOXES.");
             Room fireescape = new Room("FIRE ESCAPE", "Past the back door, Indy sees a fire escape LADDER. However, there are dozens of LARGE BOXES in the way.");
-            Room backstage = new Room("BACKSTAGE", "Indy is in the side wing of the stage-left side of the theater. Indy sees Sophia giving her presentation to a packed audience. There is a STAGEHAND watching closely nearby next to a MACHINE.");
+            Room backstage = new Room("BACKSTAGE", "Indy is in the side wing of the stage-left side of the theater. Indy sees Sophia giving her presentation to a packed audience. There is a STAGEHAND watching closely nearby next to a MACHINE with three BUTTONS and a LEVER.");
 
             // Create all items
-            Item magazine = new Item("National Archaeology", "You flip through the pages, looking at a photo of you and Sophia. \"This was taken a long time ago, when I thought we might like each other,\" you say to yourself.");
+            Item magazine = new Item("'National Archaeology' magazine", "You flip through the pages, looking at a photo of you and Sophia. \"This was taken a long time ago, when I thought we might like each other,\" you say to yourself.");
             Item newspaper = new Item("Newspaper", "It's today's paper.");
-           
+
+            // Create all npcs
+            Character tickettaker = new Character("Ticket taker", "She's counting up the receipts.");
+            Character stagehand = new Character("Stagehand", "He looks bored.");
 
             // Establish relationships
             //ROOMS
@@ -164,6 +183,9 @@ namespace indygame.Project
             backstage.AddNearbyRooms(Direction.south, backdoor);
             //ITEMS
             alleyway.Items.Add(newspaper);
+            //CHARACTERS
+            boxoffice.Characters.Add(tickettaker);
+            backstage.Characters.Add(stagehand);
 
             CurrentRoom = boxoffice;
             Playing = true;
