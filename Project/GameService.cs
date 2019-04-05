@@ -96,10 +96,11 @@ namespace indygame.Project
         public void Help()
         {
             Console.Clear();
-            Console.WriteLine("This is a text-based adventure game which relies heavily on experimenting with text commands.");
+            Console.WriteLine("This is a text-based adventure game which relies heavily on text commands.");
             Console.WriteLine("- Use cardinal directions (north, south, east, west) to move from place to place.");
             Console.WriteLine("- LOOK at everything (look statue).");
             Console.WriteLine("- GET everything you can (get bottle).");
+            Console.WriteLine("- TALK to everyone you can (talk soldier).");
             Console.WriteLine("- USE things (use lever).");
             Console.WriteLine("- Type INV to see your inventory.");
             Console.WriteLine("- Use the UP ARROW to cycle through your previous commands.");
@@ -152,7 +153,7 @@ namespace indygame.Project
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine($"{characterName.ToUpper()}: \"Take it easy and watch the show.\"");
                             Console.ForegroundColor = ConsoleColor.Magenta;
-                            Console.WriteLine("SOPHIA: \"Here, my friends, is ATLANTIS, as it might have appeared in its heyday. Glorious, prosperous, socially and technially advanced beyond our wildest dreams! 5,000 years ago, while everyone else still wore animal skins...the mighty spirits of Atlantis dared to build a city where knowledge and power were united in true happiness. Centuries later, the famous philospher Plato wrote about it. He placed Atlantis on a continent out in the deep ocean, and described how it was divided into three circular parts, such as you see here...\"");
+                            Console.WriteLine("SOPHIA: \"Here, my friends, is ATLANTIS, as it might have appeared in its heyday. Glorious, prosperous, socially and technically advanced beyond our wildest dreams! 5,000 years ago, while everyone else still wore animal skins...the mighty spirits of Atlantis dared to build a city where knowledge and power were united in true happiness. Centuries later, the famous philospher Plato wrote about it. He placed Atlantis on a continent out in the deep ocean, and described how it was divided into three circular parts, such as you see here...\"");
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine($"{characterName.ToUpper()}: \"Isn't she something? She'll go on for hours.\"");
                             Console.ForegroundColor = ConsoleColor.Green;
@@ -165,12 +166,7 @@ namespace indygame.Project
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine($"{characterName.ToUpper()}: \"Shh! She's just coming to the exciting part!\"");
                             Console.ForegroundColor = ConsoleColor.Magenta;
-                            Console.WriteLine("SOPHIA: \"What befell this serene city? We may never know for sure.\"");
-                            Console.WriteLine("\"Was it the sea level, slowly creeping higher? Or the Earth itself, suddenly shifting?\"");
-                            Console.WriteLine("\"However it happened, panic must have gripped the citizens on that fateful day when proud Atlantis sank beneath the waves...\"");
-                            Console.WriteLine("\"...Or...perhaps it was a volcanic eruption, and SOMETHING remains, even now.\"");
-                            Console.WriteLine("\"On some questions, the Great Spirit who guides my thoughts...\"");
-                            Console.WriteLine("\"The all-seeing NUR-AB-SAL is silent.\"");
+                            Console.WriteLine("SOPHIA: \"What befell this serene city? We may never know for sure. Was it the sea level, slowly creeping higher? Or the Earth itself, suddenly shifting? However it happened, panic must have gripped the citizens on that fateful day when proud Atlantis sank beneath the waves... Or... perhaps it was a volcanic eruption, and SOMETHING remains, even now. On some questions, the Great Spirit who guides my thoughts... The all-seeing NUR-AB-SAL is silent.\"");
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine($"{characterName.ToUpper()}: \"I've been through this a hundred times -- the woman never stops!\"");
                             Console.ForegroundColor = ConsoleColor.Green;
@@ -191,7 +187,7 @@ namespace indygame.Project
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine($"{characterName.ToUpper()}: \"Sure, I read.\"");
                             Console.ForegroundColor = ConsoleColor.Cyan;
-                            Console.WriteLine("INDY: \"What if I gave you something to read?\"");
+                            Console.WriteLine("INDY: \"What if I give you something to read?\"");
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine($"{characterName.ToUpper()}: \"I might take a look.\"");
                             Console.ForegroundColor = ConsoleColor.Green;
@@ -229,7 +225,12 @@ namespace indygame.Project
                             Console.WriteLine($"{characterName.ToUpper()}: \"Come back next week.\"");
                             Console.ForegroundColor = ConsoleColor.Green;
                         }
-
+                    }
+                    else if (characterName == "sophia")
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("STAGEHAND: \"Hold on! She's still talking. I've got my eye on you.\"");
+                        Console.ForegroundColor = ConsoleColor.Green;
                     }
                     Talking = false;
                     GetUserInput();
@@ -285,6 +286,7 @@ namespace indygame.Project
             // Create all npcs
             Character tickettaker = new Character("Ticket taker", "She's counting up the receipts.", 0);
             Character stagehand = new Character("Stagehand", "He looks bored.", 0);
+            Character sophia = new Character("Sophia", "Still beautiful, still impossible.", 0);
 
             // Establish relationships
             //ROOMS
@@ -302,6 +304,7 @@ namespace indygame.Project
             //CHARACTERS
             boxoffice.Characters.Add(tickettaker);
             backstage.Characters.Add(stagehand);
+            backstage.Characters.Add(sophia);
 
             CurrentRoom = boxoffice;
             Playing = true;
@@ -328,7 +331,7 @@ namespace indygame.Project
             {
                 CurrentPlayer.Inventory.Add(item);
                 CurrentRoom.Items.Remove(item);
-                System.Console.WriteLine($"Indy picked up the {itemName}.");
+                System.Console.WriteLine($"Indy picks up the {itemName}.");
             }
             else
             {
