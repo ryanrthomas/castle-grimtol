@@ -43,7 +43,7 @@ namespace indygame.Project.Interfaces
         //being able to use the item
         void UseItem(string itemName);
 
-
+        void GiveItem(string itemName);
         void Talk(string characterName);
 
         //Print the list of items in the players inventory to the console

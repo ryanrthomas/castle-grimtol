@@ -49,6 +49,9 @@ namespace indygame.Project
                 case "take":
                     TakeItem(option);
                     break;
+                case "give":
+                    GiveItem(option);
+                    break;
                 case "use":
                     UseItem(option);
                     break;
@@ -97,7 +100,7 @@ namespace indygame.Project
         {
             Console.Clear();
             Console.WriteLine("This is a text-based adventure game which relies heavily on text commands.");
-            Console.WriteLine("- Use cardinal directions (north, south, east, west) to move from place to place.");
+            Console.WriteLine("- Use cardinal directions (NORTH, SOUTH, EAST, WEST) to move from place to place.");
             Console.WriteLine("- LOOK at everything (look statue).");
             Console.WriteLine("- GET everything you can (get bottle).");
             Console.WriteLine("- TALK to everyone you can (talk soldier).");
@@ -228,9 +231,36 @@ namespace indygame.Project
                     }
                     else if (characterName == "sophia")
                     {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine("STAGEHAND: \"Hold on! She's still talking. I've got my eye on you.\"");
-                        Console.ForegroundColor = ConsoleColor.Green;
+                        if (character.TalkedTo == 0)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine("STAGEHAND: \"Hold on! She's still talking. Better not try that again... I've got my eye on you...\"");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            character.TalkedTo++;
+                        } else {
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine("STAGEHAND: \"Wait just a minute... You're not the doorman! How'd you get in?\"");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            System.Console.WriteLine("Indy is kicked out of the theater. There's no chance he'll get back in.");
+                            GameOver();
+                            break;
+                        }
+
+                    }
+                    else if (characterName == "biff")
+                    {
+                        if (character.TalkedTo == 0)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine("STAGEHAND: \"Whaddya want, pal? This ain't no ticket office.\"");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                        }
+                        else if (character.TalkedTo == 1)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine("STAGEHAND: \"You again? Now what?\"");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                        }
                     }
                     Talking = false;
                     GetUserInput();
@@ -260,8 +290,9 @@ namespace indygame.Project
         }
         public void GameOver()
         {
-            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Red;
             System.Console.WriteLine("GAME OVER. Come back and try again soon!");
+            Console.ForegroundColor = ConsoleColor.Green;
             Playing = false;
         }
 
@@ -287,6 +318,7 @@ namespace indygame.Project
             Character tickettaker = new Character("Ticket taker", "She's counting up the receipts.", 0);
             Character stagehand = new Character("Stagehand", "He looks bored.", 0);
             Character sophia = new Character("Sophia", "Still beautiful, still impossible.", 0);
+            Character biff = new Character("Biff", "The bigger they are, well... you know.", 0);
 
             // Establish relationships
             //ROOMS
@@ -304,6 +336,7 @@ namespace indygame.Project
             //CHARACTERS
             boxoffice.Characters.Add(tickettaker);
             backstage.Characters.Add(stagehand);
+            backdoor.Characters.Add(biff);
             backstage.Characters.Add(sophia);
 
             CurrentRoom = boxoffice;
@@ -347,10 +380,21 @@ namespace indygame.Project
             Item item = CurrentPlayer.Inventory.Find(i => itemName.ToLower() == i.Name.ToLower());
             if (item != null)
             {
+
+
+            }
+        }
+
+        public void GiveItem(string itemName)
+        {
+            Console.Clear();
+            Item item = CurrentPlayer.Inventory.Find(i => itemName.ToLower() == i.Name.ToLower());
+            if (item != null)
+            {
                 if (item.Name == "Newspaper")
                 {
                     Character character = CurrentRoom.Characters.Find(c => c.Name == "Stagehand");
-                    if (character != null)
+                    if (character != null && character.TalkedTo > 2)
                     {
                         CurrentPlayer.Inventory.Remove(item);
                         Console.ForegroundColor = ConsoleColor.Cyan;
@@ -361,11 +405,19 @@ namespace indygame.Project
                         System.Console.WriteLine("The stagehand grabs the newspaper and walks out.");
                         CurrentRoom.Characters.Remove(character);
                     }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.WriteLine("INDY: \"Excuse me--\"");
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("STAGEHAND: \"Stop pestering me and watch the show, will ya?\"");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                    }
                 }
                 if (item.Name == "Magazine")
                 {
                     Character character = CurrentRoom.Characters.Find(c => c.Name == "Stagehand");
-                    if (character != null)
+                    if (character != null && character.TalkedTo > 2)
                     {
                         Console.ForegroundColor = ConsoleColor.Cyan;
                         Console.WriteLine("INDY: \"Here.\"");
@@ -373,12 +425,20 @@ namespace indygame.Project
                         Console.WriteLine("STAGEHAND: \"No thanks! I read that thing years ago. I've still got my own copy.\"");
                         Console.ForegroundColor = ConsoleColor.Green;
                     }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.WriteLine("INDY: \"Excuse me--\"");
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("STAGEHAND: \"Stop pestering me and watch the show, will ya?\"");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                    }
                 }
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Cyan;
-                System.Console.WriteLine("INDY: \"I can't use that.\"");
+                System.Console.WriteLine("INDY: \"I can't give that away.\"");
                 Console.ForegroundColor = ConsoleColor.Green;
 
             }
