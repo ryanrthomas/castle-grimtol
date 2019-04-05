@@ -55,6 +55,9 @@ namespace indygame.Project
                 case "use":
                     UseItem(option);
                     break;
+                case "push":
+                    Push(option);
+                    break;
                 case "help":
                     Help();
                     break;
@@ -104,7 +107,7 @@ namespace indygame.Project
             Console.WriteLine("- LOOK at everything (look statue).");
             Console.WriteLine("- GET everything you can (get bottle).");
             Console.WriteLine("- TALK to everyone you can (talk soldier).");
-            Console.WriteLine("- USE things (use lever).");
+            Console.WriteLine("- USE things (use switch).");
             Console.WriteLine("- Type INV to see your inventory.");
             Console.WriteLine("- Use the UP ARROW to cycle through your previous commands.");
             GetUserInput();
@@ -156,7 +159,7 @@ namespace indygame.Project
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine($"{characterName.ToUpper()}: \"Take it easy and watch the show.\"");
                             Console.ForegroundColor = ConsoleColor.Magenta;
-                            Console.WriteLine("SOPHIA: \"Here, my friends, is ATLANTIS, as it might have appeared in its heyday. Glorious, prosperous, socially and technically advanced beyond our wildest dreams! 5,000 years ago, while everyone else still wore animal skins...the mighty spirits of Atlantis dared to build a city where knowledge and power were united in true happiness. Centuries later, the famous philospher Plato wrote about it. He placed Atlantis on a continent out in the deep ocean, and described how it was divided into three circular parts, such as you see here...\"");
+                            Console.WriteLine("SOPHIA: \"Here, my friends, is ATLANTIS, as it might have appeared in its heyday. Glorious, prosperous, socially and technically advanced beyond our wildest dreams! 5,000 years ago, while everyone else still wore animal skins...the mighty spirits of Atlantis dared to build a city where knowledge and power were united in true happiness. Centuries later, the famous philosopher Plato wrote about it. He placed Atlantis on a continent out in the deep ocean, and described how it was divided into three circular parts, such as you see here...\"");
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine($"{characterName.ToUpper()}: \"Isn't she something? She'll go on for hours.\"");
                             Console.ForegroundColor = ConsoleColor.Green;
@@ -231,13 +234,15 @@ namespace indygame.Project
                     }
                     else if (characterName == "sophia")
                     {
-                        if (character.TalkedTo == 0)
+                        if (character.TalkedTo < 2)
                         {
                             Console.ForegroundColor = ConsoleColor.Yellow;
-                            Console.WriteLine("STAGEHAND: \"Hold on! She's still talking. Better not try that again... I've got my eye on you...\"");
+                            Console.WriteLine("STAGEHAND: \"Hold on! She's still talking. Don't try that again... I've got my eye on you...\"");
                             Console.ForegroundColor = ConsoleColor.Green;
                             character.TalkedTo++;
-                        } else {
+                        }
+                        else
+                        {
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine("STAGEHAND: \"Wait just a minute... You're not the doorman! How'd you get in?\"");
                             Console.ForegroundColor = ConsoleColor.Green;
@@ -440,7 +445,42 @@ namespace indygame.Project
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 System.Console.WriteLine("INDY: \"I can't give that away.\"");
                 Console.ForegroundColor = ConsoleColor.Green;
+            }
+        }
 
+        public void Push(string objectName)
+        {
+            Console.Clear();
+            if (objectName.ToLower() == "button")
+            {
+                Character character = CurrentRoom.Characters.Find(c => c.Name == "Stagehand");
+                if (character == null)
+                {
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("INDY: \"There it goes.\"");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("The ghost from the machine gets Sophia's attention.");
+                    Console.WriteLine("You win! Thanks for playing!");
+                    Playing = false;
+                }
+                else
+                {
+                    if (character.TalkedTo < 2)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("STAGEHAND: \"Hold on! She's still talking. Don't try that again... I've got my eye on you...\"");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        character.TalkedTo++;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("STAGEHAND: \"Wait just a minute... You're not the doorman! How'd you get in?\"");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        System.Console.WriteLine("Indy is kicked out of the theater. There's no chance he'll get back in.");
+                        GameOver();
+                    }
+                }
             }
         }
     }
