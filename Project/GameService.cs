@@ -304,8 +304,9 @@ namespace indygame.Project
             {
                 Console.WriteLine($"{item.Description}");
             }
-            else {
-                Console.WriteLine("INDY: \"I don't see anything special about it.\"");
+            else
+            {
+                Console.WriteLine("INDY: \"There's nothing to look at.\"");
             }
             Console.ForegroundColor = ConsoleColor.Green;
             GetUserInput();
@@ -337,15 +338,17 @@ namespace indygame.Project
             Room alleyway = new Room("ALLEYWAY", "Indy is at the corner of the theater. There is a closed newspaper stand nearby with today's NEWSPAPER available, along with a PHONE BOOTH adjacent to it. Around the corner to the EAST lies the back of the theater.");
             Room backdoor = new Room("BACK DOOR OF THEATER", "Indy is at the back of the theater with a DOOR in front of you - it looks like it may lead BACKSTAGE. To the west is the ALLEYWAY. To the east is an area with many BOXES.");
             Room fireescape = new Room("FIRE ESCAPE", "Past the back door, Indy sees a fire escape LADDER. However, there are dozens of LARGE BOXES in the way.");
-            Room backstage = new Room("BACKSTAGE", "Indy is in the side wing of the stage-left side of the theater. Indy sees Sophia giving her presentation to a packed audience. There is a STAGEHAND watching closely nearby next to a machine with a LEFT LEVER, MIDDLE LEVER, RIGHT LEVER and a BUTTON.");
+            Room backstage = new Room("BACKSTAGE", "Indy is in the side wing of the stage-left side of the theater. Indy sees Sophia giving her presentation to a packed audience. There is a STAGEHAND watching closely nearby next to a machine, attached to a ghost prop, with a LEFT LEVER, MIDDLE LEVER, RIGHT LEVER and a BUTTON.");
 
             // Create all items
-            Item magazine = new Item("Magazine", "A copy of 'National Archaeology'. Indy flips through the pages, looking at a photo of you and Sophia. \"This was taken a long time ago, when I thought we might like each other,\" you say to yourself.", true, 0);
-            Item newspaper = new Item("Newspaper", "INDY: \": \"It's today's paper.\"", true, 0);
+            Item magazine = new Item("Magazine", "INDY: \"It's an old copy of National Archaeology. This photo with Sophia was taken a long time ago, when I thought we might like each other,\" you say to yourself.", true, 0);
+            Item newspaper = new Item("Newspaper", "INDY: \"It's today's paper.\"", true, 0);
             Item leftLever = new Item("Left lever", "INDY: \"This is the left lever.\"", false, 0);
             Item middleLever = new Item("Middle lever", "INDY: \"This is the middle lever.\"", false, 0);
             Item rightLever = new Item("Right lever", "INDY: \"This is the right lever.\"", false, 0);
-            Item button = new Item("Button", "This button operates the machine.", false, 0);
+            Item button = new Item("Button", "INDY: \"This button operates the machine.\"", false, 0);
+            Item marquee = new Item("Marquee", "INDY: \"It reads: MADAME SOPHIA TONIGHT. Sophia always did want her name in lights.\"", false, 0);
+            Item phonebooth = new Item("Phone booth", "INDY: \"It's just a phone booth.\"", false, 0);
 
             // Create all npcs
             Character tickettaker = new Character("Ticket taker", "INDY: \"She's counting up the receipts.\"", 0);
@@ -365,7 +368,9 @@ namespace indygame.Project
             fireescape.AddNearbyRooms(Direction.west, backdoor);
             backstage.AddNearbyRooms(Direction.south, backdoor);
             //ITEMS
+            boxoffice.Items.Add(marquee);
             alleyway.Items.Add(newspaper);
+            alleyway.Items.Add(phonebooth);
             backstage.Items.Add(leftLever);
             backstage.Items.Add(middleLever);
             backstage.Items.Add(rightLever);
@@ -402,6 +407,9 @@ namespace indygame.Project
                 CurrentPlayer.Inventory.Add(item);
                 CurrentRoom.Items.Remove(item);
                 System.Console.WriteLine($"Indy picks up the {itemName}.");
+                if (itemName.ToLower() == "newspaper"){
+                    CurrentRoom.Description = "Indy is at the corner of the theater. There is a closed newspaper stand, along with a PHONE BOOTH adjacent to it. Around the corner to the EAST lies the back of the theater.";
+                }
             }
             else
             {
@@ -430,6 +438,7 @@ namespace indygame.Project
                         Console.ForegroundColor = ConsoleColor.Green;
                         System.Console.WriteLine("The stagehand grabs the newspaper and walks out.");
                         CurrentRoom.Characters.Remove(character);
+                        CurrentRoom.Description = "Indy is in the side wing of the stage-left side of the theater. Indy sees Sophia giving her presentation to a packed audience. Nearby is a machine, attached to a ghost prop, with a LEFT LEVER, MIDDLE LEVER, RIGHT LEVER and a BUTTON.";
                     }
                     else
                     {
@@ -649,6 +658,16 @@ namespace indygame.Project
                             System.Console.WriteLine("Indy is kicked out of the theater. There's no chance he'll get back in.");
                             GameOver();
                         }
+                    }
+                }
+                else if (itemName.ToLower() == "phone booth")
+                {
+                    Item phonebooth = CurrentRoom.Items.Find(i => itemName.ToLower() == i.Name.ToLower());
+                    if (phonebooth != null)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.WriteLine("INDY: \"I can't make a call. I'm out of nickels.\"");
+                        Console.ForegroundColor = ConsoleColor.Green;
                     }
                 }
                 else
