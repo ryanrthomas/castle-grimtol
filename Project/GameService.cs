@@ -36,6 +36,7 @@ namespace indygame.Project
                     Look();
                     break;
                 case "lookat":
+                case "examine":
                     LookAt(option);
                     break;
                 case "talk":
@@ -259,13 +260,13 @@ namespace indygame.Project
                         if (character.TalkedTo == 0)
                         {
                             Console.ForegroundColor = ConsoleColor.Yellow;
-                            Console.WriteLine("STAGEHAND: \"Whaddya want, pal? This ain't no ticket office.\"");
+                            Console.WriteLine("BIFF: \"Whaddya want, pal? This ain't no ticket office.\"");
                             Console.ForegroundColor = ConsoleColor.Green;
                         }
                         else if (character.TalkedTo == 1)
                         {
                             Console.ForegroundColor = ConsoleColor.Yellow;
-                            Console.WriteLine("STAGEHAND: \"You again? Now what?\"");
+                            Console.WriteLine("BIFF: \"You again? Now what?\"");
                             Console.ForegroundColor = ConsoleColor.Green;
                         }
                     }
@@ -511,22 +512,33 @@ namespace indygame.Project
                         Item rightlever = CurrentRoom.Items.Find(i => i.Name == "Right lever");
                         if (leftlever.IsOn == 1 && middlelever.IsOn == 0 && rightlever.IsOn == 1)
                         {
+                            Console.WriteLine("The ghost prop begins to glow and quickly moves along a wire to the stage.");
                             Console.ForegroundColor = ConsoleColor.Cyan;
                             Console.WriteLine("INDY: \"There it goes.\"");
                             Console.ForegroundColor = ConsoleColor.Magenta;
                             Console.WriteLine("SOPHIA: \"...and I still feel the presence of Atlantis, through...\"");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("INDY: \"The ghost catches Sophia by surprise.");
+                            Console.ForegroundColor = ConsoleColor.Magenta;
                             Console.WriteLine("SOPHIA: \"... err... May I present NUR-AB-SAL!... the great Atlantean god of... of...\"");
                             Console.ForegroundColor = ConsoleColor.Cyan;
                             Console.WriteLine("INDY: \"Deceit!\"");
                             Console.ForegroundColor = ConsoleColor.Magenta;
                             Console.WriteLine("SOPHIA: \"...Deceit!! Thanks, Indy.\"");
                             Console.WriteLine("SOPHIA: \"INDIANA JONES!? You've got some nerve! Go back, you big jack-o'-lantern!\"");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("The ghost prop malfunctions and burns up to nothing.");
+                            Console.ForegroundColor = ConsoleColor.Magenta;
                             Console.WriteLine("SOPHIA: \"Oh, great... G'night, folks...\"");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("Sophia leaves the podium and angrily approaches Indy.");
+                            Console.ForegroundColor = ConsoleColor.Magenta;
                             Console.WriteLine("SOPHIA: \"C'mon mister! I've got a few words to mince with you!\"");
                             Console.ForegroundColor = ConsoleColor.Cyan;
                             Console.WriteLine("INDY: \"I'd say it's about time!\"");
                             Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine("You win! Thanks for playing!");
+                            Console.WriteLine("To be continued...");
+                            Console.WriteLine("YOU WIN! THANKS FOR PLAYING!");
                             Playing = false;
                         }
                         else
