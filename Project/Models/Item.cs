@@ -7,6 +7,9 @@ namespace indygame.Project.Models
     {
         public string Name { get; set; }
         public string Description { get; set; }
+        public bool canTake { get; set; }
+
+        public bool leverPosition { get; set; }
         List<string> Inventory { get; set; }
         public void AddToInventory(string item)
         {

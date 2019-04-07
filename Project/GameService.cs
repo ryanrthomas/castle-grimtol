@@ -315,6 +315,10 @@ namespace indygame.Project
             // Create all items
             Item magazine = new Item("Magazine", "A copy of 'National Archaeology'. You flip through the pages, looking at a photo of you and Sophia. \"This was taken a long time ago, when I thought we might like each other,\" you say to yourself.", true);
             Item newspaper = new Item("Newspaper", "It's today's paper.", true);
+            Item leftLever = new Item("Left lever", "This button operates the machine.", false);
+            Item middleLever = new Item("Middle lever", "This button operates the machine.", false);
+            Item rightLever = new Item("Right lever", "This button operates the machine.", false);
+            Item button = new Item("Button", "This button operates the machine.", false);
 
             // Create all npcs
             Character tickettaker = new Character("Ticket taker", "She's counting up the receipts.", 0);
@@ -335,6 +339,10 @@ namespace indygame.Project
             backstage.AddNearbyRooms(Direction.south, backdoor);
             //ITEMS
             alleyway.Items.Add(newspaper);
+            backstage.Items.Add(leftLever);
+            backstage.Items.Add(middleLever);
+            backstage.Items.Add(rightLever);
+            backstage.Items.Add(button);
             //CHARACTERS
             boxoffice.Characters.Add(tickettaker);
             backstage.Characters.Add(stagehand);
@@ -437,9 +445,11 @@ namespace indygame.Project
         public void UseItem(string itemName)
         {
             Console.Clear();
-            if (itemName.ToLower() == "button")
+            Item item = CurrentRoom.Items.Find(i => itemName.ToLower() == i.Name.ToLower());
+            if (item != null)
             {
-                if (CurrentRoom.Name.ToLower() == "backstage")
+
+                if (itemName.ToLower() == "button")
                 {
                     Character character = CurrentRoom.Characters.Find(c => c.Name == "Stagehand");
                     if (character == null)
@@ -450,6 +460,84 @@ namespace indygame.Project
                         Console.WriteLine("The ghost from the machine gets Sophia's attention.");
                         Console.WriteLine("You win! Thanks for playing!");
                         Playing = false;
+                    }
+                    else
+                    {
+                        if (character.TalkedTo < 2)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine("STAGEHAND: \"Hold on! She's still talking. Don't try that again... I've got my eye on you...\"");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            character.TalkedTo++;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine("STAGEHAND: \"Wait just a minute... You're not the doorman! How'd you get in?\"");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            System.Console.WriteLine("Indy is kicked out of the theater. There's no chance he'll get back in.");
+                            GameOver();
+                        }
+                    }
+                }
+                else if (itemName.ToLower() == "left lever")
+                {
+                    Character character = CurrentRoom.Characters.Find(c => c.Name == "Stagehand");
+                    if (character == null)
+                    {
+                        System.Console.WriteLine("Indy moves the left lever.");
+                    }
+                    else
+                    {
+                        if (character.TalkedTo < 2)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine("STAGEHAND: \"Hold on! She's still talking. Don't try that again... I've got my eye on you...\"");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            character.TalkedTo++;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine("STAGEHAND: \"Wait just a minute... You're not the doorman! How'd you get in?\"");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            System.Console.WriteLine("Indy is kicked out of the theater. There's no chance he'll get back in.");
+                            GameOver();
+                        }
+                    }
+                }
+                else if (itemName.ToLower() == "middle lever")
+                {
+                    Character character = CurrentRoom.Characters.Find(c => c.Name == "Stagehand");
+                    if (character == null)
+                    {
+                        System.Console.WriteLine("Indy moves the middle lever.");
+                    }
+                    else
+                    {
+                        if (character.TalkedTo < 2)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine("STAGEHAND: \"Hold on! She's still talking. Don't try that again... I've got my eye on you...\"");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            character.TalkedTo++;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine("STAGEHAND: \"Wait just a minute... You're not the doorman! How'd you get in?\"");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            System.Console.WriteLine("Indy is kicked out of the theater. There's no chance he'll get back in.");
+                            GameOver();
+                        }
+                    }
+                }
+                else if (itemName.ToLower() == "right lever")
+                {
+                    Character character = CurrentRoom.Characters.Find(c => c.Name == "Stagehand");
+                    if (character == null)
+                    {
+                        System.Console.WriteLine("Indy moves the right lever.");
                     }
                     else
                     {
