@@ -351,11 +351,11 @@ namespace indygame.Project
             Item leftLever = new Item("Left lever", "INDY: \"This is the left lever.\"", false, 0);
             Item middleLever = new Item("Middle lever", "INDY: \"This is the middle lever.\"", false, 0);
             Item rightLever = new Item("Right lever", "INDY: \"This is the right lever.\"", false, 0);
-            Item button = new Item("Button", "INDY: \"This button operates the machine.\"", false, 0);
-            Item marquee = new Item("Marquee", "INDY: \"It reads: MADAME SOPHIA TONIGHT. Sophia always did want her name in lights.\"", false, 0);
+            Item button = new Item("Button", "INDY: \"It appears to control this ghostly stage-prop.\"", false, 0);
+            Item marquee = new Item("Marquee", "INDY: \"Imagine the suckers who actually pay to see Sophia's 'Lost World' lectures.\"", false, 0);
             Item phonebooth = new Item("Phone booth", "INDY: \"It's just a phone booth.\"", false, 0);
             Item ladder = new Item("Ladder", "INDY: \"Looks like it might lead backstage.\"", false, 0);
-            Item doors = new Item("Doors", "INDY: \"They're the front doors to the theater.\"", false, 0);
+            Item doors = new Item("Doors", "INDY: \"They appear to be locked.\"", false, 0);
 
 
             // Create all npcs
@@ -533,11 +533,11 @@ namespace indygame.Project
                             Console.ForegroundColor = ConsoleColor.Green;
                             Console.WriteLine("The ghost prop malfunctions and burns up to nothing.");
                             Console.ForegroundColor = ConsoleColor.Magenta;
-                            Console.WriteLine("SOPHIA: \"Oh, great... G'night, folks...\"");
+                            Console.WriteLine("SOPHIA: \"Oh, great!... G'night, folks...\"");
                             Console.ForegroundColor = ConsoleColor.Green;
                             Console.WriteLine("Sophia leaves the podium and angrily approaches Indy.");
                             Console.ForegroundColor = ConsoleColor.Magenta;
-                            Console.WriteLine("SOPHIA: \"C'mon, mister! I've got a few words to mince with you!\"");
+                            Console.WriteLine("SOPHIA: \"Come on, mister! I've got a few words to mince with you!\"");
                             Console.ForegroundColor = ConsoleColor.Cyan;
                             Console.WriteLine("INDY: \"I'd say it's about time!\"");
                             Console.ForegroundColor = ConsoleColor.Green;
@@ -548,7 +548,7 @@ namespace indygame.Project
                         else
                         {
                             Console.ForegroundColor = ConsoleColor.Cyan;
-                            Console.WriteLine("INDY: \"Nothing happened. Maybe I have to arrange the levers in a specific sequence.\"");
+                            Console.WriteLine("INDY: \"Hmm. Nothing happened.\"");
                             Console.ForegroundColor = ConsoleColor.Green;
                         }
 
