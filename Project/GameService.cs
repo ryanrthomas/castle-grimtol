@@ -301,9 +301,13 @@ namespace indygame.Project
             {
                 Console.WriteLine($"{character.Description}");
             }
-            else if (item != null || invItem != null)
+            else if (item != null)
             {
                 Console.WriteLine($"{item.Description}");
+            }
+            else if (invItem != null)
+            {
+                Console.WriteLine($"{invItem.Description}");
             }
             else
             {
@@ -518,7 +522,7 @@ namespace indygame.Project
                             Console.ForegroundColor = ConsoleColor.Magenta;
                             Console.WriteLine("SOPHIA: \"...and I still feel the presence of Atlantis, through...\"");
                             Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine("INDY: \"The ghost catches Sophia by surprise.");
+                            Console.WriteLine("The ghost catches Sophia by surprise.");
                             Console.ForegroundColor = ConsoleColor.Magenta;
                             Console.WriteLine("SOPHIA: \"... err... May I present NUR-AB-SAL!... the great Atlantean god of... of...\"");
                             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -533,7 +537,7 @@ namespace indygame.Project
                             Console.ForegroundColor = ConsoleColor.Green;
                             Console.WriteLine("Sophia leaves the podium and angrily approaches Indy.");
                             Console.ForegroundColor = ConsoleColor.Magenta;
-                            Console.WriteLine("SOPHIA: \"C'mon mister! I've got a few words to mince with you!\"");
+                            Console.WriteLine("SOPHIA: \"C'mon, mister! I've got a few words to mince with you!\"");
                             Console.ForegroundColor = ConsoleColor.Cyan;
                             Console.WriteLine("INDY: \"I'd say it's about time!\"");
                             Console.ForegroundColor = ConsoleColor.Green;
