@@ -7,7 +7,7 @@ namespace indygame.Project.Models
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public bool canTake { get; set; }
+        public bool CanTake { get; set; }
 
         public bool leverPosition { get; set; }
         public int IsOn { get; set; }
@@ -29,6 +29,7 @@ namespace indygame.Project.Models
         {
             Name = name;
             Description = desc;
+            CanTake = canTake;
             IsOn = isOn;
         }
 

@@ -109,7 +109,7 @@ namespace indygame.Project
             Console.WriteLine("- GET everything you can (get bottle).");
             Console.WriteLine("- TALK to everyone you can (talk soldier). You may get different results from talking to people repeatedly.");
             Console.WriteLine("- USE things (use switch).");
-            Console.WriteLine("- GIVE things away (give present).");
+            Console.WriteLine("- GIVE things away that are in your inventory (give present).");
             Console.WriteLine("- Type INV to see your inventory.");
             Console.WriteLine("- Use the UP ARROW to cycle through your previous commands.");
             GetUserInput();
@@ -334,7 +334,7 @@ namespace indygame.Project
         public void Setup()
         {
             // Create all rooms
-            Room boxoffice = new Room("THEATER BOX OFFICE", "Indy is in front of the theater with a large MARQUEE where Sophia's psychic show is taking place. A TICKET TAKER sits in a box office. The only route is to the SOUTH down the street to an ALLEYWAY.");
+            Room boxoffice = new Room("THEATER BOX OFFICE", "Indy is in front of the theater where Sophia's show is taking place. The theatre has DOORS that lead in with a large MARQUEE hanging above. A TICKET TAKER sits in a box office. The only route is to the SOUTH down the street to an ALLEYWAY.");
             Room alleyway = new Room("ALLEYWAY", "Indy is at the corner of the theater. There is a closed newspaper stand nearby with today's NEWSPAPER available, along with a PHONE BOOTH adjacent to it. Around the corner to the EAST lies the back of the theater.");
             Room backdoor = new Room("BACK DOOR OF THEATER", "Indy is at the back of the theater with a DOOR in front of you - it looks like it may lead BACKSTAGE. To the west is the ALLEYWAY. To the east is an area with many BOXES.");
             Room fireescape = new Room("FIRE ESCAPE", "Past the back door, Indy sees a fire escape LADDER. However, there are dozens of LARGE BOXES in the way.");
@@ -349,6 +349,9 @@ namespace indygame.Project
             Item button = new Item("Button", "INDY: \"This button operates the machine.\"", false, 0);
             Item marquee = new Item("Marquee", "INDY: \"It reads: MADAME SOPHIA TONIGHT. Sophia always did want her name in lights.\"", false, 0);
             Item phonebooth = new Item("Phone booth", "INDY: \"It's just a phone booth.\"", false, 0);
+            Item ladder = new Item("Ladder", "INDY: \"Looks like it might lead backstage.\"", false, 0);
+            Item doors = new Item("Doors", "INDY: \"They're the front doors to the theater.\"", false, 0);
+
 
             // Create all npcs
             Character tickettaker = new Character("Ticket taker", "INDY: \"She's counting up the receipts.\"", 0);
@@ -357,7 +360,7 @@ namespace indygame.Project
             Character biff = new Character("Biff", "INDY: \"The bigger they are, well... you know.\"", 0);
 
             // Establish relationships
-            //ROOMS
+            // ROOMS
             boxoffice.AddNearbyRooms(Direction.south, alleyway);
             alleyway.AddNearbyRooms(Direction.north, boxoffice);
             alleyway.AddNearbyRooms(Direction.east, backdoor);
@@ -367,15 +370,17 @@ namespace indygame.Project
             fireescape.AddNearbyRooms(Direction.north, backstage);
             fireescape.AddNearbyRooms(Direction.west, backdoor);
             backstage.AddNearbyRooms(Direction.south, backdoor);
-            //ITEMS
+            // ITEMS
             boxoffice.Items.Add(marquee);
+            boxoffice.Items.Add(doors);
             alleyway.Items.Add(newspaper);
             alleyway.Items.Add(phonebooth);
             backstage.Items.Add(leftLever);
             backstage.Items.Add(middleLever);
             backstage.Items.Add(rightLever);
             backstage.Items.Add(button);
-            //CHARACTERS
+            fireescape.Items.Add(ladder);
+            // CHARACTERS
             boxoffice.Characters.Add(tickettaker);
             backstage.Characters.Add(stagehand);
             backdoor.Characters.Add(biff);
@@ -404,12 +409,23 @@ namespace indygame.Project
             Item item = CurrentRoom.Items.Find(i => itemName.ToLower() == i.Name.ToLower());
             if (item != null)
             {
-                CurrentPlayer.Inventory.Add(item);
-                CurrentRoom.Items.Remove(item);
-                System.Console.WriteLine($"Indy picks up the {itemName}.");
-                if (itemName.ToLower() == "newspaper"){
-                    CurrentRoom.Description = "Indy is at the corner of the theater. There is a closed newspaper stand, along with a PHONE BOOTH adjacent to it. Around the corner to the EAST lies the back of the theater.";
+                if (item.CanTake == true)
+                {
+                    CurrentPlayer.Inventory.Add(item);
+                    CurrentRoom.Items.Remove(item);
+                    System.Console.WriteLine($"Indy picks up the {itemName}.");
+                    if (itemName.ToLower() == "newspaper")
+                    {
+                        CurrentRoom.Description = "Indy is at the corner of the theater. There is a closed newspaper stand, along with a PHONE BOOTH adjacent to it. Around the corner to the EAST lies the back of the theater.";
+                    }
                 }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    System.Console.WriteLine("INDY: \"I can't pick that up.\"");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                }
+
             }
             else
             {
@@ -667,6 +683,16 @@ namespace indygame.Project
                     {
                         Console.ForegroundColor = ConsoleColor.Cyan;
                         Console.WriteLine("INDY: \"I can't make a call. I'm out of nickels.\"");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                    }
+                }
+                else if (itemName.ToLower() == "doors")
+                {
+                    Item doors = CurrentRoom.Items.Find(i => itemName.ToLower() == i.Name.ToLower());
+                    if (doors != null)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                        Console.WriteLine("TICKET TAKER: \"The doors are locked, sir.\"");
                         Console.ForegroundColor = ConsoleColor.Green;
                     }
                 }
