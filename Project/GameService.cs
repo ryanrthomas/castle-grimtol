@@ -103,8 +103,9 @@ namespace indygame.Project
             Console.WriteLine("- Use cardinal directions (NORTH, SOUTH, EAST, WEST) to move from place to place.");
             Console.WriteLine("- LOOK at everything (look statue).");
             Console.WriteLine("- GET everything you can (get bottle).");
-            Console.WriteLine("- TALK to everyone you can (talk soldier).");
+            Console.WriteLine("- TALK to everyone you can (talk soldier). You may get different results from talking to people repeatedly.");
             Console.WriteLine("- USE things (use switch).");
+            Console.WriteLine("- GIVE things away (give present).");
             Console.WriteLine("- Type INV to see your inventory.");
             Console.WriteLine("- Use the UP ARROW to cycle through your previous commands.");
             GetUserInput();
@@ -473,6 +474,7 @@ namespace indygame.Project
                             Console.WriteLine("SOPHIA: \"C'mon mister! I've got a few words to mince with you!\"");
                             Console.ForegroundColor = ConsoleColor.Cyan;
                             Console.WriteLine("INDY: \"I'd say it's about time!\"");
+                            Console.ForegroundColor = ConsoleColor.Green;
                             Console.WriteLine("You win! Thanks for playing!");
                             Playing = false;
                         }
