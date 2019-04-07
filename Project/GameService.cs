@@ -35,6 +35,9 @@ namespace indygame.Project
                 case "look around":
                     Look();
                     break;
+                case "lookat":
+                    LookAt(option);
+                    break;
                 case "talk":
                 case "talk to":
                     Talk(option);
@@ -281,7 +284,25 @@ namespace indygame.Project
         public void Look()
         {
             Console.Clear();
-            System.Console.WriteLine($"{CurrentRoom.Description}");
+            Console.WriteLine($"{CurrentRoom.Description}");
+            GetUserInput();
+        }
+
+        public void LookAt(string name)
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Character character = CurrentRoom.Characters.Find(i => name.ToLower() == i.Name.ToLower());
+            Item item = CurrentRoom.Items.Find(i => name.ToLower() == i.Name.ToLower());
+            if (character != null)
+            {
+                Console.WriteLine($"{character.Description}");
+            }
+            else
+            {
+                Console.WriteLine($"{item.Description}");
+            }
+            Console.ForegroundColor = ConsoleColor.Green;
             GetUserInput();
         }
 
@@ -314,18 +335,18 @@ namespace indygame.Project
             Room backstage = new Room("BACKSTAGE", "Indy is in the side wing of the stage-left side of the theater. Indy sees Sophia giving her presentation to a packed audience. There is a STAGEHAND watching closely nearby next to a machine with a LEFT LEVER, MIDDLE LEVER, RIGHT LEVER and a BUTTON.");
 
             // Create all items
-            Item magazine = new Item("Magazine", "A copy of 'National Archaeology'. You flip through the pages, looking at a photo of you and Sophia. \"This was taken a long time ago, when I thought we might like each other,\" you say to yourself.", true, 0);
-            Item newspaper = new Item("Newspaper", "It's today's paper.", true, 0);
-            Item leftLever = new Item("Left lever", "This button operates the machine.", false, 0);
-            Item middleLever = new Item("Middle lever", "This button operates the machine.", false, 0);
-            Item rightLever = new Item("Right lever", "This button operates the machine.", false, 0);
+            Item magazine = new Item("Magazine", "A copy of 'National Archaeology'. Indy flips through the pages, looking at a photo of you and Sophia. \"This was taken a long time ago, when I thought we might like each other,\" you say to yourself.", true, 0);
+            Item newspaper = new Item("Newspaper", "INDY: \": \"It's today's paper.\"", true, 0);
+            Item leftLever = new Item("Left lever", "INDY: \"This is the left lever.\"", false, 0);
+            Item middleLever = new Item("Middle lever", "INDY: \"This is the middle lever.\"", false, 0);
+            Item rightLever = new Item("Right lever", "INDY: \"This is the right lever.\"", false, 0);
             Item button = new Item("Button", "This button operates the machine.", false, 0);
 
             // Create all npcs
-            Character tickettaker = new Character("Ticket taker", "She's counting up the receipts.", 0);
-            Character stagehand = new Character("Stagehand", "He looks bored.", 0);
-            Character sophia = new Character("Sophia", "Still beautiful, still impossible.", 0);
-            Character biff = new Character("Biff", "The bigger they are, well... you know.", 0);
+            Character tickettaker = new Character("Ticket taker", "INDY: \"She's counting up the receipts.\"", 0);
+            Character stagehand = new Character("Stagehand", "INDY: \"He looks bored.\"", 0);
+            Character sophia = new Character("Sophia", "INDY: \"Still beautiful, still impossible.\"", 0);
+            Character biff = new Character("Biff", "INDY: \"The bigger they are, well... you know.\"", 0);
 
             // Establish relationships
             //ROOMS
