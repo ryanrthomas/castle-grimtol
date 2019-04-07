@@ -462,14 +462,24 @@ namespace indygame.Project
                             Console.ForegroundColor = ConsoleColor.Cyan;
                             Console.WriteLine("INDY: \"There it goes.\"");
                             Console.ForegroundColor = ConsoleColor.Magenta;
-                            Console.WriteLine("SOPHIA: \"Here, my friends, is ATLANTIS, as it might have appeared in its heyday. Glorious, prosperous, socially and technically advanced beyond our wildest dreams! 5,000 years ago, while everyone else still wore animal skins...the mighty spirits of Atlantis dared to build a city where knowledge and power were united in true happiness. Centuries later, the famous philosopher Plato wrote about it. He placed Atlantis on a continent out in the deep ocean, and described how it was divided into three circular parts, such as you see here...\"");
+                            Console.WriteLine("SOPHIA: \"...and I still feel the presence of Atlantis, through...\"");
+                            Console.WriteLine("SOPHIA: \"... err... May I present NUR-AB-SAL!... the great Atlantean god of... of...\"");
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.WriteLine("INDY: \"Deceit!\"");
+                            Console.ForegroundColor = ConsoleColor.Magenta;
+                            Console.WriteLine("SOPHIA: \"...Deceit!! Thanks, Indy.\"");
+                            Console.WriteLine("SOPHIA: \"INDIANA JONES!? You've got some nerve! Go back, you big jack-o'-lantern!\"");
+                            Console.WriteLine("SOPHIA: \"Oh, great... G'night, folks...\"");
+                            Console.WriteLine("SOPHIA: \"C'mon mister! I've got a few words to mince with you!\"");
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.WriteLine("INDY: \"I'd say it's about time!\"");
                             Console.WriteLine("You win! Thanks for playing!");
                             Playing = false;
                         }
                         else
                         {
                             Console.ForegroundColor = ConsoleColor.Cyan;
-                            Console.WriteLine("INDY: \"Nothing happened.\"");
+                            Console.WriteLine("INDY: \"Nothing happened. Maybe I have to arrange the levers in a specific sequence.\"");
                             Console.ForegroundColor = ConsoleColor.Green;
                         }
 
@@ -510,7 +520,7 @@ namespace indygame.Project
                             else
                             {
                                 leftlever.IsOn = 0;
-                                System.Console.WriteLine("The left lever is not activated");
+                                System.Console.WriteLine("The left lever is not activated.");
                             }
                         }
                     }
@@ -550,7 +560,7 @@ namespace indygame.Project
                             else
                             {
                                 middlelever.IsOn = 0;
-                                System.Console.WriteLine("The middle lever is not activated");
+                                System.Console.WriteLine("The middle lever is not activated.");
                             }
                         }
                     }
@@ -590,7 +600,7 @@ namespace indygame.Project
                             else
                             {
                                 rightlever.IsOn = 0;
-                                System.Console.WriteLine("The right lever is not activated");
+                                System.Console.WriteLine("The right lever is not activated.");
                             }
                         }
                     }
