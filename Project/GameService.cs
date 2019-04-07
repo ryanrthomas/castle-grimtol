@@ -55,9 +55,6 @@ namespace indygame.Project
                 case "use":
                     UseItem(option);
                     break;
-                case "push":
-                    Push(option);
-                    break;
                 case "help":
                     Help();
                     break;
@@ -313,7 +310,7 @@ namespace indygame.Project
             Room alleyway = new Room("ALLEYWAY", "Indy is at the corner of the theater. There is a closed newspaper stand nearby with today's NEWSPAPER available, along with a PHONE BOOTH adjacent to it. Around the corner to the EAST lies the back of the theater.");
             Room backdoor = new Room("BACK DOOR OF THEATER", "Indy is at the back of the theater with a DOOR in front of you - it looks like it may lead BACKSTAGE. To the west is the ALLEYWAY. To the east is an area with many BOXES.");
             Room fireescape = new Room("FIRE ESCAPE", "Past the back door, Indy sees a fire escape LADDER. However, there are dozens of LARGE BOXES in the way.");
-            Room backstage = new Room("BACKSTAGE", "Indy is in the side wing of the stage-left side of the theater. Indy sees Sophia giving her presentation to a packed audience. There is a STAGEHAND watching closely nearby next to a MACHINE with three LEVERS and a BUTTON.");
+            Room backstage = new Room("BACKSTAGE", "Indy is in the side wing of the stage-left side of the theater. Indy sees Sophia giving her presentation to a packed audience. There is a STAGEHAND watching closely nearby next to a machine with a LEFT LEVER, MIDDLE LEVER, RIGHT LEVER and a BUTTON.");
 
             // Create all items
             Item magazine = new Item("Magazine", "A copy of 'National Archaeology'. You flip through the pages, looking at a photo of you and Sophia. \"This was taken a long time ago, when I thought we might like each other,\" you say to yourself.", true);
@@ -379,17 +376,6 @@ namespace indygame.Project
             }
         }
 
-        public void UseItem(string itemName)
-        {
-            Console.Clear();
-            Item item = CurrentPlayer.Inventory.Find(i => itemName.ToLower() == i.Name.ToLower());
-            if (item != null)
-            {
-
-
-            }
-        }
-
         public void GiveItem(string itemName)
         {
             Console.Clear();
@@ -448,38 +434,47 @@ namespace indygame.Project
             }
         }
 
-        public void Push(string objectName)
+        public void UseItem(string itemName)
         {
             Console.Clear();
-            if (objectName.ToLower() == "button")
+            if (itemName.ToLower() == "button")
             {
-                Character character = CurrentRoom.Characters.Find(c => c.Name == "Stagehand");
-                if (character == null)
+                if (CurrentRoom.Name.ToLower() == "backstage")
                 {
-                    Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.WriteLine("INDY: \"There it goes.\"");
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("The ghost from the machine gets Sophia's attention.");
-                    Console.WriteLine("You win! Thanks for playing!");
-                    Playing = false;
-                }
-                else
-                {
-                    if (character.TalkedTo < 2)
+                    Character character = CurrentRoom.Characters.Find(c => c.Name == "Stagehand");
+                    if (character == null)
                     {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine("STAGEHAND: \"Hold on! She's still talking. Don't try that again... I've got my eye on you...\"");
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.WriteLine("INDY: \"There it goes.\"");
                         Console.ForegroundColor = ConsoleColor.Green;
-                        character.TalkedTo++;
+                        Console.WriteLine("The ghost from the machine gets Sophia's attention.");
+                        Console.WriteLine("You win! Thanks for playing!");
+                        Playing = false;
                     }
                     else
                     {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine("STAGEHAND: \"Wait just a minute... You're not the doorman! How'd you get in?\"");
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        System.Console.WriteLine("Indy is kicked out of the theater. There's no chance he'll get back in.");
-                        GameOver();
+                        if (character.TalkedTo < 2)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine("STAGEHAND: \"Hold on! She's still talking. Don't try that again... I've got my eye on you...\"");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            character.TalkedTo++;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine("STAGEHAND: \"Wait just a minute... You're not the doorman! How'd you get in?\"");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            System.Console.WriteLine("Indy is kicked out of the theater. There's no chance he'll get back in.");
+                            GameOver();
+                        }
                     }
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    System.Console.WriteLine("INDY: \"I can't move it.\"");
+                    Console.ForegroundColor = ConsoleColor.Green;
                 }
             }
         }
