@@ -313,12 +313,12 @@ namespace indygame.Project
             Room backstage = new Room("BACKSTAGE", "Indy is in the side wing of the stage-left side of the theater. Indy sees Sophia giving her presentation to a packed audience. There is a STAGEHAND watching closely nearby next to a machine with a LEFT LEVER, MIDDLE LEVER, RIGHT LEVER and a BUTTON.");
 
             // Create all items
-            Item magazine = new Item("Magazine", "A copy of 'National Archaeology'. You flip through the pages, looking at a photo of you and Sophia. \"This was taken a long time ago, when I thought we might like each other,\" you say to yourself.", true);
-            Item newspaper = new Item("Newspaper", "It's today's paper.", true);
-            Item leftLever = new Item("Left lever", "This button operates the machine.", false);
-            Item middleLever = new Item("Middle lever", "This button operates the machine.", false);
-            Item rightLever = new Item("Right lever", "This button operates the machine.", false);
-            Item button = new Item("Button", "This button operates the machine.", false);
+            Item magazine = new Item("Magazine", "A copy of 'National Archaeology'. You flip through the pages, looking at a photo of you and Sophia. \"This was taken a long time ago, when I thought we might like each other,\" you say to yourself.", true, 0);
+            Item newspaper = new Item("Newspaper", "It's today's paper.", true, 0);
+            Item leftLever = new Item("Left lever", "This button operates the machine.", false, 0);
+            Item middleLever = new Item("Middle lever", "This button operates the machine.", false, 0);
+            Item rightLever = new Item("Right lever", "This button operates the machine.", false, 0);
+            Item button = new Item("Button", "This button operates the machine.", false, 0);
 
             // Create all npcs
             Character tickettaker = new Character("Ticket taker", "She's counting up the receipts.", 0);
@@ -454,12 +454,25 @@ namespace indygame.Project
                     Character character = CurrentRoom.Characters.Find(c => c.Name == "Stagehand");
                     if (character == null)
                     {
-                        Console.ForegroundColor = ConsoleColor.Cyan;
-                        Console.WriteLine("INDY: \"There it goes.\"");
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("The ghost from the machine gets Sophia's attention.");
-                        Console.WriteLine("You win! Thanks for playing!");
-                        Playing = false;
+                        Item leftlever = CurrentRoom.Items.Find(i => i.Name == "Left lever");
+                        Item middlelever = CurrentRoom.Items.Find(i => i.Name == "Middle lever");
+                        Item rightlever = CurrentRoom.Items.Find(i => i.Name == "Right lever");
+                        if (leftlever.IsOn == 1 && middlelever.IsOn == 0 && rightlever.IsOn == 1)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.WriteLine("INDY: \"There it goes.\"");
+                            Console.ForegroundColor = ConsoleColor.Magenta;
+                            Console.WriteLine("SOPHIA: \"Here, my friends, is ATLANTIS, as it might have appeared in its heyday. Glorious, prosperous, socially and technically advanced beyond our wildest dreams! 5,000 years ago, while everyone else still wore animal skins...the mighty spirits of Atlantis dared to build a city where knowledge and power were united in true happiness. Centuries later, the famous philosopher Plato wrote about it. He placed Atlantis on a continent out in the deep ocean, and described how it was divided into three circular parts, such as you see here...\"");
+                            Console.WriteLine("You win! Thanks for playing!");
+                            Playing = false;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.WriteLine("INDY: \"Nothing happened.\"");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                        }
+
                     }
                     else
                     {
@@ -485,7 +498,21 @@ namespace indygame.Project
                     Character character = CurrentRoom.Characters.Find(c => c.Name == "Stagehand");
                     if (character == null)
                     {
-                        System.Console.WriteLine("Indy moves the left lever.");
+                        Item leftlever = CurrentRoom.Items.Find(i => itemName.ToLower() == i.Name.ToLower());
+                        if (leftlever != null)
+                        {
+                            System.Console.WriteLine("Indy moves the left lever.");
+                            if (leftlever.IsOn == 0)
+                            {
+                                leftlever.IsOn = 1;
+                                System.Console.WriteLine("The left lever is activated.");
+                            }
+                            else
+                            {
+                                leftlever.IsOn = 0;
+                                System.Console.WriteLine("The left lever is not activated");
+                            }
+                        }
                     }
                     else
                     {
@@ -511,7 +538,21 @@ namespace indygame.Project
                     Character character = CurrentRoom.Characters.Find(c => c.Name == "Stagehand");
                     if (character == null)
                     {
-                        System.Console.WriteLine("Indy moves the middle lever.");
+                        Item middlelever = CurrentRoom.Items.Find(i => itemName.ToLower() == i.Name.ToLower());
+                        if (middlelever != null)
+                        {
+                            System.Console.WriteLine("Indy moves the middle lever.");
+                            if (middlelever.IsOn == 0)
+                            {
+                                middlelever.IsOn = 1;
+                                System.Console.WriteLine("The middle lever is activated.");
+                            }
+                            else
+                            {
+                                middlelever.IsOn = 0;
+                                System.Console.WriteLine("The middle lever is not activated");
+                            }
+                        }
                     }
                     else
                     {
@@ -537,7 +578,21 @@ namespace indygame.Project
                     Character character = CurrentRoom.Characters.Find(c => c.Name == "Stagehand");
                     if (character == null)
                     {
-                        System.Console.WriteLine("Indy moves the right lever.");
+                        Item rightlever = CurrentRoom.Items.Find(i => itemName.ToLower() == i.Name.ToLower());
+                        if (rightlever != null)
+                        {
+                            System.Console.WriteLine("Indy moves the right lever.");
+                            if (rightlever.IsOn == 0)
+                            {
+                                rightlever.IsOn = 1;
+                                System.Console.WriteLine("The right lever is activated.");
+                            }
+                            else
+                            {
+                                rightlever.IsOn = 0;
+                                System.Console.WriteLine("The right lever is not activated");
+                            }
+                        }
                     }
                     else
                     {

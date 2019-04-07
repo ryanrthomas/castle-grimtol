@@ -10,6 +10,7 @@ namespace indygame.Project.Models
         public bool canTake { get; set; }
 
         public bool leverPosition { get; set; }
+        public int IsOn { get; set; }
         List<string> Inventory { get; set; }
         public void AddToInventory(string item)
         {
@@ -24,10 +25,11 @@ namespace indygame.Project.Models
             });
         }
 
-        public Item(string name, string desc, bool canTake)
+        public Item(string name, string desc, bool canTake, int isOn)
         {
             Name = name;
             Description = desc;
+            IsOn = isOn;
         }
 
     }
