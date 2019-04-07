@@ -104,7 +104,8 @@ namespace indygame.Project
             Console.Clear();
             Console.WriteLine("This is a text-based adventure game which relies heavily on text commands.");
             Console.WriteLine("- Use cardinal directions (NORTH, SOUTH, EAST, WEST) to move from place to place.");
-            Console.WriteLine("- LOOK at everything (look statue).");
+            Console.WriteLine("- LOOK to get the room description again.");
+            Console.WriteLine("- LOOKAT at everything (lookat statue).");
             Console.WriteLine("- GET everything you can (get bottle).");
             Console.WriteLine("- TALK to everyone you can (talk soldier). You may get different results from talking to people repeatedly.");
             Console.WriteLine("- USE things (use switch).");
@@ -294,13 +295,17 @@ namespace indygame.Project
             Console.ForegroundColor = ConsoleColor.Cyan;
             Character character = CurrentRoom.Characters.Find(i => name.ToLower() == i.Name.ToLower());
             Item item = CurrentRoom.Items.Find(i => name.ToLower() == i.Name.ToLower());
+            Item invItem = CurrentPlayer.Inventory.Find(i => name.ToLower() == i.Name.ToLower());
             if (character != null)
             {
                 Console.WriteLine($"{character.Description}");
             }
-            else
+            else if (item != null || invItem != null)
             {
                 Console.WriteLine($"{item.Description}");
+            }
+            else {
+                Console.WriteLine("INDY: \"I don't see anything special about it.\"");
             }
             Console.ForegroundColor = ConsoleColor.Green;
             GetUserInput();
