@@ -31,6 +31,7 @@ namespace indygame.Project
                 case "go":
                 case "walk":
                 case "move":
+                case: "exit"
                     Go(option);
                     break;
                 case "look":
