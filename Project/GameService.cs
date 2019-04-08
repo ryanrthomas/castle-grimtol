@@ -348,7 +348,7 @@ namespace indygame.Project
             Room backstage = new Room("BACKSTAGE", "Indy is in the side wing of the stage-left side of the theater. Indy sees Sophia giving her presentation to a packed audience. There is a STAGEHAND watching closely nearby next to a machine, attached to a ghost prop, with a LEFT LEVER, MIDDLE LEVER, RIGHT LEVER and a BUTTON. The exit is SOUTH.");
 
             // Create all items
-            Item magazine = new Item("Magazine", "INDY: \"It's an old copy of National Archaeology. This photo with Sophia was taken a long time ago, when I thought we might like each other.\", true, 0);
+            Item magazine = new Item("Magazine", "INDY: \"It's an old copy of National Archaeology. This photo with Sophia was taken a long time ago, when I thought we might like each other.\"", true, 0);
             Item newspaper = new Item("Newspaper", "INDY: \"It's today's paper.\"", true, 0);
             Item leftLever = new Item("Left lever", "INDY: \"This is the left lever.\"", false, 0);
             Item middleLever = new Item("Middle lever", "INDY: \"This is the middle lever.\"", false, 0);
