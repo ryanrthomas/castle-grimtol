@@ -576,6 +576,7 @@ namespace indygame.Project
                             Console.ForegroundColor = ConsoleColor.Green;
                             Console.WriteLine("To be continued...");
                             Console.WriteLine("YOU WIN! THANKS FOR PLAYING!");
+                            PlayFullSong();
                             Playing = false;
                         }
                         else
@@ -752,6 +753,73 @@ namespace indygame.Project
                     Console.ForegroundColor = ConsoleColor.Green;
                 }
             }
+        }
+        public void PlayFullSong()
+        {
+            Console.Beep(320, 400); // E
+            Console.Beep(340, 200); // F
+            Console.Beep(380, 300); // G
+            Console.Beep(515, 2000); // C
+            Console.Beep(290, 300); // D
+            Console.Beep(320, 200); // E 
+            Console.Beep(340, 2000);
+            Console.Beep(380, 300);
+            Console.Beep(420, 200);
+            Console.Beep(480, 300);
+            Console.Beep(690, 1500); // High F
+            Console.Beep(420, 200);
+            Console.Beep(480, 300);
+            Console.Beep(515, 700); // C 
+            Console.Beep(570, 700); // D
+            Console.Beep(640, 700); // E
+            // Halfway point of theme
+            Console.Beep(320, 400); // E
+            Console.Beep(340, 200); // F
+            Console.Beep(380, 300); // G
+            Console.Beep(515, 2000); // C
+            Console.Beep(570, 300); // D
+            Console.Beep(640, 200); // E 
+            Console.Beep(690, 2000); // F
+            Console.Beep(380, 400); // G
+            Console.Beep(380, 200); // G
+            Console.Beep(640, 700); // E
+            Console.Beep(570, 400); // D
+            Console.Beep(380, 200); // G
+            Console.Beep(640, 700); // E
+            Console.Beep(570, 400); // D
+            Console.Beep(380, 200); // G
+            Console.Beep(640, 700); // E
+            Console.Beep(570, 400); // D
+            Console.Beep(380, 200); // G
+            Console.Beep(690, 700); // F
+            Console.Beep(640, 400); // E
+            Console.Beep(570, 200); // D
+            Console.Beep(515, 3000); // C
+        }
+        public void PlayHalfSong() {
+            Console.Beep(320, 400); // E
+            Console.Beep(340, 200); // F
+            Console.Beep(380, 300); // G
+            Console.Beep(515, 2000); // C
+            Console.Beep(570, 300); // D
+            Console.Beep(640, 200); // E 
+            Console.Beep(690, 2000); // F
+            Console.Beep(380, 400); // G
+            Console.Beep(380, 200); // G
+            Console.Beep(640, 700); // E
+            Console.Beep(570, 400); // D
+            Console.Beep(380, 200); // G
+            Console.Beep(640, 700); // E
+            Console.Beep(570, 400); // D
+            Console.Beep(380, 200); // G
+            Console.Beep(640, 700); // E
+            Console.Beep(570, 400); // D
+            Console.Beep(380, 200); // G
+            Console.Beep(690, 700); // F
+            Console.Beep(640, 400); // E
+            Console.Beep(570, 200); // D
+            Console.Beep(515, 3000); // C
+
         }
     }
 }

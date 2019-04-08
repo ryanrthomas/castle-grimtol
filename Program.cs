@@ -16,6 +16,7 @@ namespace indygame
             Console.ForegroundColor = ConsoleColor.Green;
 
             GameService gm = new GameService();
+            gm.PlayHalfSong();
             gm.StartGame();
         }
     }
