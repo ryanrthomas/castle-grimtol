@@ -15,7 +15,7 @@ namespace indygame.Project
         public void GetUserInput()
         {
             System.Console.Write("What would you like to do? ");
-            string[] inputArr = System.Console.ReadLine().ToLower().Split(" ");
+            string[] inputArr = Console.ReadLine().ToLower().Split(" ");
             string command = inputArr[0];
             string option = "";
             if (inputArr.Length > 1)
@@ -34,11 +34,10 @@ namespace indygame.Project
                     Go(option);
                     break;
                 case "look":
-                case "look around":
                     Look();
                     break;
-                case "lookat":
                 case "examine":
+                case "lookat":
                     LookAt(option);
                     break;
                 case "talk":
@@ -97,7 +96,7 @@ namespace indygame.Project
             else
             {
                 Console.ForegroundColor = ConsoleColor.Cyan;
-                System.Console.WriteLine("INDY: \"I can't go that way.\"");
+                Console.WriteLine("INDY: \"I can't go that way.\"");
                 Console.ForegroundColor = ConsoleColor.Green;
             }
         }
@@ -371,11 +370,11 @@ namespace indygame.Project
         public void Setup()
         {
             // Create all rooms
-            Room boxoffice = new Room("THEATER BOX OFFICE", "Indy is in front of the theater where Sophia's presentation is taking place. The theater has DOORS that lead in with a large MARQUEE hanging above. A TICKET TAKER sits in a box office. The only route is to the SOUTH down the street to an ALLEYWAY.");
+            Room boxoffice = new Room("THEATER BOX OFFICE", "Indy is in front of the theater where Sophia's presentation is taking place. The theater has DOORS that lead in with a large MARQUEE hanging above. A TICKET TAKER sits in a box office. The only route is to the SOUTH down the street to an alleyway.");
             Room alleyway = new Room("ALLEYWAY", "Indy is at the corner of the theater. There is a closed newspaper stand nearby with today's NEWSPAPER available, along with a PHONE BOOTH adjacent to it. Around the corner to the EAST lies the back of the theater.");
             Room backdoor = new Room("BACK DOOR OF THEATER", "Indy is at the back of the theater with a door in front of you to the NORTH - it looks like it may lead backstage. To the WEST is the alleyway. To the EAST is an area with many BOXES.");
             Room fireescape = new Room("FIRE ESCAPE", "Past the back door, Indy sees a fire escape LADDER. However, there are dozens of LARGE BOXES in the way. The backdoor is to the WEST.");
-            Room backstage = new Room("BACKSTAGE", "Indy is in the side wing of the theater. He sees Sophia giving her presentation to a packed audience. There is a STAGEHAND watching closely nearby next to a machine, attached to a ghost prop, with a LEFT LEVER, MIDDLE LEVER, RIGHT LEVER and a BUTTON. The exit is SOUTH.");
+            Room backstage = new Room("BACKSTAGE", "Indy is in the side wing of the theater. He sees Sophia giving her presentation to a packed audience. There is a STAGEHAND nearby, keeping a very close watch of his ghost-prop MACHINE, consisting of a LEFT LEVER, MIDDLE LEVER, RIGHT LEVER and a BUTTON. It'd be best not to cause trouble. The exit is SOUTH.");
 
             // Create all items
             Item magazine = new Item("Magazine", "INDY: \"It's an old copy of National Archaeology. This photo with Sophia was taken a long time ago, when I thought we might like each other.\"", true, 0);
@@ -384,6 +383,7 @@ namespace indygame.Project
             Item middleLever = new Item("Middle lever", "INDY: \"This is the middle lever.\"", false, 0);
             Item rightLever = new Item("Right lever", "INDY: \"This is the right lever.\"", false, 0);
             Item button = new Item("Button", "INDY: \"It appears to control this ghostly stage-prop.\"", false, 0);
+            Item machine = new Item("Machine", "INDY: \"This machine operates the stage-prop. There's a slip of paper stuck on the side labeled '1-0-1'. What does that mean?\"", false, 0);
             Item marquee = new Item("Marquee", "INDY: \"Imagine the suckers who actually pay to see Sophia's 'Lost World' lectures.\"", false, 0);
             Item phonebooth = new Item("Phone booth", "INDY: \"It's just a phone booth.\"", false, 0);
             Item ladder = new Item("Ladder", "INDY: \"Looks like it might lead backstage.\"", false, 0);
@@ -411,6 +411,7 @@ namespace indygame.Project
             boxoffice.Items.Add(doors);
             alleyway.Items.Add(newspaper);
             alleyway.Items.Add(phonebooth);
+            backstage.Items.Add(machine);
             backstage.Items.Add(leftLever);
             backstage.Items.Add(middleLever);
             backstage.Items.Add(rightLever);
