@@ -29,6 +29,8 @@ namespace indygame.Project
             switch (command)
             {
                 case "go":
+                case "walk":
+                case "move":
                     Go(option);
                     break;
                 case "look":
@@ -49,7 +51,7 @@ namespace indygame.Project
                     Inventory();
                     break;
                 case "get":
-                case "pick up":
+                case "pickup":
                 case "take":
                     TakeItem(option);
                     break;
@@ -106,7 +108,7 @@ namespace indygame.Project
             Console.WriteLine("This is a text-based adventure game which relies heavily on text commands.");
             Console.WriteLine("- Use cardinal directions (NORTH, SOUTH, EAST, WEST) to move from place to place.");
             Console.WriteLine("- LOOK to get the room description again.");
-            Console.WriteLine("- LOOKAT at everything (lookat statue).");
+            Console.WriteLine("- EXAMINE everything (examine statue).");
             Console.WriteLine("- GET everything you can (get bottle).");
             Console.WriteLine("- TALK to everyone you can (talk soldier). You may get different results from talking to people repeatedly.");
             Console.WriteLine("- USE things (use switch).");
@@ -339,14 +341,14 @@ namespace indygame.Project
         public void Setup()
         {
             // Create all rooms
-            Room boxoffice = new Room("THEATER BOX OFFICE", "Indy is in front of the theater where Sophia's show is taking place. The theatre has DOORS that lead in with a large MARQUEE hanging above. A TICKET TAKER sits in a box office. The only route is to the SOUTH down the street to an ALLEYWAY.");
+            Room boxoffice = new Room("THEATER BOX OFFICE", "Indy is in front of the theater where Sophia's presentation is taking place. The theater has DOORS that lead in with a large MARQUEE hanging above. A TICKET TAKER sits in a box office. The only route is to the SOUTH down the street to an ALLEYWAY.");
             Room alleyway = new Room("ALLEYWAY", "Indy is at the corner of the theater. There is a closed newspaper stand nearby with today's NEWSPAPER available, along with a PHONE BOOTH adjacent to it. Around the corner to the EAST lies the back of the theater.");
-            Room backdoor = new Room("BACK DOOR OF THEATER", "Indy is at the back of the theater with a DOOR in front of you - it looks like it may lead BACKSTAGE. To the west is the ALLEYWAY. To the east is an area with many BOXES.");
-            Room fireescape = new Room("FIRE ESCAPE", "Past the back door, Indy sees a fire escape LADDER. However, there are dozens of LARGE BOXES in the way.");
-            Room backstage = new Room("BACKSTAGE", "Indy is in the side wing of the stage-left side of the theater. Indy sees Sophia giving her presentation to a packed audience. There is a STAGEHAND watching closely nearby next to a machine, attached to a ghost prop, with a LEFT LEVER, MIDDLE LEVER, RIGHT LEVER and a BUTTON.");
+            Room backdoor = new Room("BACK DOOR OF THEATER", "Indy is at the back of the theater with a door in front of you to the NORTH - it looks like it may lead backstage. To the WEST is the alleyway. To the EAST is an area with many BOXES.");
+            Room fireescape = new Room("FIRE ESCAPE", "Past the back door, Indy sees a fire escape LADDER. However, there are dozens of LARGE BOXES in the way. The backdoor is to the WEST.");
+            Room backstage = new Room("BACKSTAGE", "Indy is in the side wing of the stage-left side of the theater. Indy sees Sophia giving her presentation to a packed audience. There is a STAGEHAND watching closely nearby next to a machine, attached to a ghost prop, with a LEFT LEVER, MIDDLE LEVER, RIGHT LEVER and a BUTTON. The exit is SOUTH.");
 
             // Create all items
-            Item magazine = new Item("Magazine", "INDY: \"It's an old copy of National Archaeology. This photo with Sophia was taken a long time ago, when I thought we might like each other,\" you say to yourself.", true, 0);
+            Item magazine = new Item("Magazine", "INDY: \"It's an old copy of National Archaeology. This photo with Sophia was taken a long time ago, when I thought we might like each other.\", true, 0);
             Item newspaper = new Item("Newspaper", "INDY: \"It's today's paper.\"", true, 0);
             Item leftLever = new Item("Left lever", "INDY: \"This is the left lever.\"", false, 0);
             Item middleLever = new Item("Middle lever", "INDY: \"This is the middle lever.\"", false, 0);
@@ -528,7 +530,7 @@ namespace indygame.Project
                             Console.ForegroundColor = ConsoleColor.Cyan;
                             Console.WriteLine("INDY: \"Deceit!\"");
                             Console.ForegroundColor = ConsoleColor.Magenta;
-                            Console.WriteLine("SOPHIA: \"...Deceit!! Thanks, Indy.\"");
+                            Console.WriteLine("SOPHIA: \"...deceit!! Thanks, Indy.\"");
                             Console.WriteLine("SOPHIA: \"INDIANA JONES!? You've got some nerve! Go back, you big jack-o'-lantern!\"");
                             Console.ForegroundColor = ConsoleColor.Green;
                             Console.WriteLine("The ghost prop malfunctions and burns up to nothing.");
