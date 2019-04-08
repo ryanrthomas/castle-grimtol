@@ -375,7 +375,7 @@ namespace indygame.Project
             Room alleyway = new Room("ALLEYWAY", "Indy is at the corner of the theater. There is a closed newspaper stand nearby with today's NEWSPAPER available, along with a PHONE BOOTH adjacent to it. Around the corner to the EAST lies the back of the theater.");
             Room backdoor = new Room("BACK DOOR OF THEATER", "Indy is at the back of the theater with a door in front of you to the NORTH - it looks like it may lead backstage. To the WEST is the alleyway. To the EAST is an area with many BOXES.");
             Room fireescape = new Room("FIRE ESCAPE", "Past the back door, Indy sees a fire escape LADDER. However, there are dozens of LARGE BOXES in the way. The backdoor is to the WEST.");
-            Room backstage = new Room("BACKSTAGE", "Indy is in the side wing of the theater. He sees Sophia giving her presentation to a packed audience. There is a STAGEHAND nearby, keeping a very close watch of his ghost-prop MACHINE, consisting of a LEFT LEVER, MIDDLE LEVER, RIGHT LEVER and a BUTTON. It'd be best not to cause trouble. The exit is SOUTH.");
+            Room backstage = new Room("BACKSTAGE", "Indy is in the side wing of the theater. He sees Sophia giving her presentation to a packed audience. There is a STAGEHAND nearby, keeping a very close watch of his ghost-prop MACHINE, consisting of a LEFT LEVER, MIDDLE LEVER, RIGHT LEVER side-by-side and a BUTTON beneath them. It'd be best not to cause trouble. The exit is SOUTH.");
 
             // Create all items
             Item magazine = new Item("Magazine", "INDY: \"It's an old copy of National Archaeology. This photo with Sophia was taken a long time ago, when I thought we might like each other.\"", true, 0);
@@ -492,7 +492,7 @@ namespace indygame.Project
                         Console.ForegroundColor = ConsoleColor.Green;
                         System.Console.WriteLine("The stagehand grabs the newspaper and walks out.");
                         CurrentRoom.Characters.Remove(character);
-                        CurrentRoom.Description = "Indy is in the side wing of the stage-left side of the theater. Indy sees Sophia giving her presentation to a packed audience. Nearby is a machine, attached to a ghost prop, with a LEFT LEVER, MIDDLE LEVER, RIGHT LEVER and a BUTTON.";
+                        CurrentRoom.Description = "Indy is in the side wing of the stage-left side of the theater. Indy sees Sophia giving her presentation to a packed audience. Nearby is a machine, attached to a ghost prop, with a LEFT LEVER, MIDDLE LEVER, RIGHT LEVERside-by-side and a BUTTON beneath them. While reading, the stagehand is still monitoring you to make sure you don't interrupt Sophia's lecture. The exit is SOUTH.";
                     }
                     else
                     {
