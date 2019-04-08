@@ -190,6 +190,19 @@ namespace indygame.Project
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine($"{characterName.ToUpper()}: \"Yeah? What now?\"");
                             Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.WriteLine("INDY: \"You look tired. Wouldn't you like to call it a day?\"");
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine($"{characterName.ToUpper()}: \"Nah, sooner or later I get to run the ghost out there. That's always a big moment.\"");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            character.TalkedTo++;
+                        }
+                        else if (character.TalkedTo == 4)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.WriteLine("INDY: \"Excuse me.\"");
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine($"{characterName.ToUpper()}: \"Yeah? What now?\"");
+                            Console.ForegroundColor = ConsoleColor.Cyan;
                             Console.WriteLine("INDY: \"Isn't there something you'd rather be doing?\"");
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine($"{characterName.ToUpper()}: \"Like what? Show business is my whole life!\"");
@@ -201,6 +214,23 @@ namespace indygame.Project
                             Console.WriteLine("INDY: \"What if I give you something to read?\"");
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine($"{characterName.ToUpper()}: \"I might take a look.\"");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            character.TalkedTo++;
+                        }
+                        else if (character.TalkedTo == 5)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.WriteLine("INDY: \"Excuse me.\"");
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine($"{characterName.ToUpper()}: \"Yeah? What now?\"");
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.WriteLine("INDY: \"Madame told me to tell you you're fired.\"");
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine($"{characterName.ToUpper()}: \"What? You can't fire me!\"");
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.WriteLine("INDY: \"Oh no? Take a look at my driver's license.\"");
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine($"{characterName.ToUpper()}: \"Stop pestering me and watch the show, will ya?\""); Console.ForegroundColor = ConsoleColor.Green;
                             Console.ForegroundColor = ConsoleColor.Green;
                             character.TalkedTo++;
                         }
@@ -345,7 +375,7 @@ namespace indygame.Project
             Room alleyway = new Room("ALLEYWAY", "Indy is at the corner of the theater. There is a closed newspaper stand nearby with today's NEWSPAPER available, along with a PHONE BOOTH adjacent to it. Around the corner to the EAST lies the back of the theater.");
             Room backdoor = new Room("BACK DOOR OF THEATER", "Indy is at the back of the theater with a door in front of you to the NORTH - it looks like it may lead backstage. To the WEST is the alleyway. To the EAST is an area with many BOXES.");
             Room fireescape = new Room("FIRE ESCAPE", "Past the back door, Indy sees a fire escape LADDER. However, there are dozens of LARGE BOXES in the way. The backdoor is to the WEST.");
-            Room backstage = new Room("BACKSTAGE", "Indy is in the side wing of the stage-left side of the theater. Indy sees Sophia giving her presentation to a packed audience. There is a STAGEHAND watching closely nearby next to a machine, attached to a ghost prop, with a LEFT LEVER, MIDDLE LEVER, RIGHT LEVER and a BUTTON. The exit is SOUTH.");
+            Room backstage = new Room("BACKSTAGE", "Indy is in the side wing of the theater. He sees Sophia giving her presentation to a packed audience. There is a STAGEHAND watching closely nearby next to a machine, attached to a ghost prop, with a LEFT LEVER, MIDDLE LEVER, RIGHT LEVER and a BUTTON. The exit is SOUTH.");
 
             // Create all items
             Item magazine = new Item("Magazine", "INDY: \"It's an old copy of National Archaeology. This photo with Sophia was taken a long time ago, when I thought we might like each other.\"", true, 0);
@@ -358,7 +388,6 @@ namespace indygame.Project
             Item phonebooth = new Item("Phone booth", "INDY: \"It's just a phone booth.\"", false, 0);
             Item ladder = new Item("Ladder", "INDY: \"Looks like it might lead backstage.\"", false, 0);
             Item doors = new Item("Doors", "INDY: \"They appear to be locked.\"", false, 0);
-
 
             // Create all npcs
             Character tickettaker = new Character("Ticket taker", "INDY: \"She's counting up the receipts.\"", 0);
