@@ -796,6 +796,7 @@ namespace indygame.Project
             Console.Beep(570, 200); // D
             Console.Beep(515, 3000); // C
         }
+       
         public void PlayHalfSong() {
             Console.Beep(320, 400); // E
             Console.Beep(340, 200); // F

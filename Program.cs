@@ -7,6 +7,7 @@ namespace indygame
     {
         public static void Main(string[] args)
         {
+            Console.BackgroundColor = ConsoleColor.Black;
             Console.Clear();
             Console.WriteLine("Welcome to the Indiana Jones Checkpoint Project!");
             Console.WriteLine("You can type 'help' at any time to bring up a list of game commands.");
